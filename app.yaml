@@ -1,2 +1,7 @@
+# Prevents locally installed Bower dependencies
+# from being copied into the Docker image
+skip_files:
+  - ^(.*/)?.*/bower_components/.*$
+
 runtime: nodejs
 env: flex

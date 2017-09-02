@@ -4,7 +4,7 @@
   "description": "Application to manage product",
   "main": "application.js",
   "scripts": {
-    
+    "postinstall": "bower install --config.interactive=false",
     "start": "node application.js",
     "deploy": "gcloud app deploy"
   },
