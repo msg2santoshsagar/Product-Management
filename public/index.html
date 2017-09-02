@@ -3,25 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Product Management</title>
 <meta name="description"
 	content="Product Management Node Js Application">
 <meta name="viewport" content="width=device-width">
+
+<link rel="stylesheet"
+	href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="content/css/main.css">
+
 </head>
-<body ng-app="productManagement" ng-strict-di>
+<body ng-app="productManagement" ng-strict-di class="bodyContainer">
 
 
-	<h1>Product Management</h1>
+	<div class="container mainContainer">
 
-	<div ui-view="navbar" ng-cloak>
-		<!-- nav bar views -->
-		<h1>NAV BAR</h1>
+		<div class="row">
+			
+			<div class="col-md-12">
+				<p class="appName">Product Management</p>
+			</div>
+		</div>
+
+		<div ui-view="navbar" ng-cloak>
+			<!-- nav bar views -->
+		</div>
+
+		<div class="well min-height-420" ui-view="content">
+			<!-- Angular views -->
+		</div>
+
 	</div>
 
-	<div class="well" ui-view="content">
-		<!-- Angular views -->
-		<h1>CONTENT VIEW</h1>
-	</div>
+
+
+
+
 
 	<!-- Java Script Files :: START -->
 
@@ -30,6 +48,9 @@
 	<script
 		src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="bower_components/ngstorage/ngStorage.js"></script>
+
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 	<!-- Java Script Files ::   END -->
 
