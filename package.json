@@ -4,7 +4,8 @@
   "description": "Application to manage product",
   "main": "application.js",
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "start" : "node application.js"
   },
   "repository": "",
   "keywords": [
