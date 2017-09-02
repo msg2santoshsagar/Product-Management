@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Product Management</title>
+<meta name="description"
+	content="Product Management Node Js Application">
+<meta name="viewport" content="width=device-width">
+</head>
+<body ng-app="productManagement" ng-strict-di>
+
+
+	<h1>Product Management</h1>
+
+	<div ui-view="navbar" ng-cloak>
+		<!-- nav bar views -->
+		<h1>NAV BAR</h1>
+	</div>
+
+	<div class="well" ui-view="content">
+		<!-- Angular views -->
+		<h1>CONTENT VIEW</h1>
+	</div>
+
+	<!-- Java Script Files :: START -->
+
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script
+		src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="bower_components/ngstorage/ngStorage.js"></script>
+
+	<!-- Java Script Files ::   END -->
+
+	<!-- inject:js -->
+	<script src="app/app.js"></script>
+	<script src="app/blocks/handlers/state.handler.js"></script>
+	<script src="app/app.constants.js"></script>
+	<script src="app/app.state.js"></script>
+	<script src="app/layouts/navbar/navbar.controller.js"></script>
+	<script src="app/home/home.state.js"></script>
+	<script src="app/home/home.controller.js"></script>
+	<!-- endinject -->
+
+</body>
+</html>

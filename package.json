@@ -1,0 +1,26 @@
+{
+  "name": "ProductManagement",
+  "version": "0.0.1",
+  "description": "Application to manage product",
+  "main": "application.js",
+  "scripts": {
+    "postinstall": "bower install"
+  },
+  "repository": "",
+  "keywords": [
+    "node.js",
+    "eclipse",
+    "nodeclipse"
+  ],
+  "author": "Santosh Sagar<msg2santoshsagar@gmail.com>",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "serve-static": "^1.12.4"
+  },
+  "devDependencies": {
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp": "^3.9.1",
+    "gulp-inject": "^4.2.0",
+    "gulp-natural-sort": "^0.1.1"
+  }
+}

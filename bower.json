@@ -1,0 +1,22 @@
+{
+  "name": "ProductManagement",
+  "version": "0.0.1",
+  "authors": [
+    "Santosh Sagar <msg2santoshsagar@gmail.com>"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-ui-router": "^1.0.6",
+    "angular-bootstrap": "^2.5.0",
+    "ngstorage": "^0.3.11",
+    "bootstrap": "^3.3.7"
+  }
+}
