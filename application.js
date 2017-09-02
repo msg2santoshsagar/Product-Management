@@ -6,12 +6,18 @@ var serveStatic = require('serve-static');
  * Serve up public/ folder */
 var servePublic = serveStatic('public', {'index': ['index.html', 'index.htm']});
 
+
+//Start the server
+const PORT = process.env.PORT || 8085;
+
 http.createServer(function handler(req, res) {
 	console.log(req.method, req.url, 'HTTP'+req.httpVersion, req.headers); // , req is too long
 
-	res.setHeader('Access-Control-Allow-Origin', '127.0.0.1');
-    
-    servePublic(req, res, function nextHandler(req, res){
-    });    
-}).listen(8085,'127.0.0.1');
-console.log('Server running at http://127.0.0.1:8085');
+	//res.setHeader('Access-Control-Allow-Origin', '127.0.0.1');
+
+	servePublic(req, res, function nextHandler(req, res){
+	});    
+}).listen(PORT,() => {
+	console.log(`App listening on port ${PORT}`);
+	console.log('Press Ctrl+C to quit.');
+});

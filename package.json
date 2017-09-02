@@ -1,27 +1,35 @@
 {
-  "name": "ProductManagement",
-  "version": "0.0.1",
-  "description": "Application to manage product",
-  "main": "application.js",
-  "scripts": {
-    "postinstall": "bower install",
-    "start" : "node application.js"
-  },
-  "repository": "",
-  "keywords": [
-    "node.js",
-    "eclipse",
-    "nodeclipse"
-  ],
-  "author": "Santosh Sagar<msg2santoshsagar@gmail.com>",
-  "readmeFilename": "README.md",
-  "dependencies": {
-    "serve-static": "^1.12.4"
-  },
-  "devDependencies": {
-    "gulp-angular-filesort": "^1.1.1",
-    "gulp": "^3.9.1",
-    "gulp-inject": "^4.2.0",
-    "gulp-natural-sort": "^0.1.1"
-  }
+	"name": "ProductManagement",
+	"version": "0.0.1",
+	"description": "Application to manage product",
+	"main": "application.js",
+	"scripts": {
+		"postinstall": "bower install",
+		"start" : "node application.js",
+		"deploy": "gcloud app deploy"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/msg2santoshsagar/Product-Management.git"
+	},
+	"engines": {
+		"node": ">=4.3.2"
+	},
+	"keywords": [
+		"node.js",
+		"eclipse",
+		"nodeclipse"
+		],
+		"author": "Santosh Sagar<msg2santoshsagar@gmail.com>",
+		"readmeFilename": "README.md",
+		"dependencies": {
+			"serve-static": "^1.12.4"
+		},
+		"devDependencies": {
+			"gulp-angular-filesort": "^1.1.1",
+			"gulp": "^3.9.1",
+			"gulp-inject": "^4.2.0",
+			"gulp-natural-sort": "^0.1.1",
+			"@google-cloud/nodejs-repo-tools": "1.4.17"
+		}
 }
