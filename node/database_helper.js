@@ -2,21 +2,31 @@ var mysql 		= require('mysql');
 var dbProperty 	= require('./../node/database_property');
 
 
-var con = mysql.createConnection({
+var connection = mysql.createConnection({
 	host		: dbProperty.DB_HOST,
 	user		: dbProperty.DB_USER,
-	password	: dbProperty.DB_PWD
+	password	: dbProperty.DB_PWD,
+	database    : dbProperty.DB_SCHEMA
 });
 
-con.connect(function(err) {
-	if (err){
-		throw err;
-	}
-	console.log("Connected!");
-	con.query("select * from "+dbProperty.DB_SCHEMA+".user;", function (err, result) {
+
+/*function executeQuery(query, param){
+	con.connect(function(err) {
 		if (err){
 			throw err;
 		}
-		console.log("Result: ", result);
+		console.log("Connected");
+		con.query(query, param,  function (err, result) {
+			if (err){
+				throw err;
+			}
+			console.log("RESULT FROM HELPER --- ");
+			console.log(result);
+			return result;
+		});
 	});
-});
+}
+*/
+module.exports = {
+		connection	:	connection
+};

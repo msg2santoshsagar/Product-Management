@@ -5,8 +5,8 @@
 	.module('productManagement', [
 		'ngStorage',
 		'ui.router',
-		'ui.bootstrap'
-
+		'ui.bootstrap',
+		'ui.grid'
 		]);
 
 	app.config(config);
@@ -21,7 +21,7 @@
 	function config($locationProvider){
 		$locationProvider.html5Mode({
 			enabled: true,
-			requireBase: false
+			requireBase: true
 		}).hashPrefix('!')
 	}
 

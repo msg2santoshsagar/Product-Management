@@ -9,6 +9,9 @@
 
 	function NavbarController ($state,LoginService) {
 		var vm = this;
+
+		vm.$state = $state ;
+
 		console.log("Nav Bar Controller Created.");
 
 		vm.login=function(){

@@ -13,8 +13,9 @@
 
 <link rel="stylesheet"
 	href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="styleSheet" href="bower_components/angular-ui-grid/ui-grid.min.css" />
 <link rel="stylesheet" href="content/css/main.css">
-
+<base href="/">
 </head>
 <body ng-app="productManagement" ng-strict-di class="bodyContainer">
 
@@ -50,9 +51,10 @@
 	<script
 		src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="bower_components/ngstorage/ngStorage.js"></script>
+	<script src="bower_components/ngstorage/ngStorage.js"></script>
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular-ui-grid/ui-grid.min.js"></script>
 
 	<!-- Java Script Files ::   END -->
 
@@ -61,8 +63,12 @@
 	<script src="app/layouts/navbar/navbar.controller.js"></script>
 	<script src="app/home/home.state.js"></script>
 	<script src="app/home/home.controller.js"></script>
+	<script src="app/entities/user/user-dialog.controller.js"></script>
+	<script src="app/entities/user/user.state.js"></script>
+	<script src="app/entities/user/user.controller.js"></script>
 	<script src="app/components/login/login.service.js"></script>
 	<script src="app/components/login/login.controller.js"></script>
+	<script src="app/blocks/http_service.js"></script>
 	<script src="app/blocks/handlers/state.handler.js"></script>
 	<script src="app/app.state.js"></script>
 	<script src="app/app.constants.js"></script>

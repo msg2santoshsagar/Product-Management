@@ -1,0 +1,78 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()"
+	show-validation>
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true" ng-click="vm.clear()">&times;</button>
+		<h4 class="modal-title" id="myMessageLabel">Create or edit a User</h4>
+	</div>
+	<div class="modal-body">
+		<div class="form-group" ng-show="vm.message.id">
+			<label for="id">ID</label> <input type="text" class="form-control"
+				id="id" name="id" ng-model="vm.user.id" readonly />
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="field_userid">User Id</label> <input
+				type="text" class="form-control" name="userid" id="field_userid"
+				ng-model="vm.user.userid" required />
+			<div ng-show="editForm.userid.$invalid">
+				<p class="help-block" ng-show="editForm.userid.$error.required">
+					This field is required.</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="field_name">Name</label> <input
+				type="text" class="form-control" name="name" id="field_name"
+				ng-model="vm.user.name" required />
+			<div ng-show="editForm.name.$invalid">
+				<p class="help-block" ng-show="editForm.name.$error.required">
+					This field is required.</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="field_role">Role</label> <select
+				class="form-control" name="role" id="field_role"
+				ng-model="vm.user.role" required>
+				<option value="SALESMAN">Sales Man</option>
+				<option value="ADMIN">Admin</option>
+			</select>
+			<div ng-show="editForm.role.$invalid">
+				<p class="help-block" ng-show="editForm.role.$error.required">
+					This field is required.</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="field_password">Password</label> <input
+				type="text" class="form-control" name="password" id="field_password"
+				ng-model="vm.user.password" required />
+			<div ng-show="editForm.password.$invalid">
+				<p class="help-block" ng-show="editForm.password.$error.required">
+					This field is required.</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="field_active">Active</label> <select
+				class="form-control" name="active" id="field_active"
+				ng-model="vm.user.active" required>
+				<option value="YES">YES</option>
+				<option value="NO">NO</option>
+			</select>
+			<div ng-show="editForm.active.$invalid">
+				<p class="help-block" ng-show="editForm.active.$error.required">
+					This field is required.</p>
+			</div>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal"
+			ng-click="vm.clear()">
+			<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+		</button>
+		<button type="submit" ng-disabled="editForm.$invalid || vm.isSaving"
+			class="btn btn-primary">
+			<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+		</button>
+	</div>
+</form>

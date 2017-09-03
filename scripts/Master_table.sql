@@ -9,7 +9,7 @@ CREATE TABLE `user` (
   `role` ENUM('ADMIN', 'SALESMAN') NULL,
   `userid` VARCHAR(45) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  `active` BIT NOT NULL,  
+  `active` ENUM('YES','NO') NOT NULL,  
   `createdBy` VARCHAR(45) NOT NULL,
   `createdDate` DATE NOT NULL,
   `updatedBy` VARCHAR(45) NOT NULL,
