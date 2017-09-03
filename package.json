@@ -23,9 +23,10 @@
   "author": "Santosh Sagar<msg2santoshsagar@gmail.com>",
   "readmeFilename": "README.md",
   "dependencies": {
-    "serve-static": "^1.12.4",
     "bower": "^1.8.0",
-    "express": "4.15.4"
+    "express": "4.15.4",
+    "mysql": "^2.14.1",
+    "serve-static": "^1.12.4"
   },
   "devDependencies": {
     "@google-cloud/nodejs-repo-tools": "1.4.17",

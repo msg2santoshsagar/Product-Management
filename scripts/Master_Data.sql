@@ -1,0 +1,2 @@
+#Rem Data into user table
+INSERT INTO `user` (`name`, `role`, `userid`, `password`, `active`, `createdBy`, `createdDate`, `updatedBy`, `updatedDate`) VALUES ('Santosh Sagar', 'ADMIN', 'admin', 'admin', true, 'SYSTEM', now(), 'SYSTEM', now());
