@@ -10,6 +10,6 @@
     function HomeController ($scope, $state) {
         var vm = this;
 
-        console.log("Home COntroller called");
+        console.log("Home Controller called");
     }
 })();
