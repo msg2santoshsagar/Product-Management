@@ -27,6 +27,33 @@ function findAll(req,res){
 	userRepository.findAll(responseHanler);
 }
 
+function findOne(req,res){
+
+	function responseHanler( errorData, successData ){
+		if(successData !== null){
+
+			for(var i =0; i<successData.length; i++){
+				delete successData[i].password;
+			}
+
+			res.send({
+				code : 200,
+				data : successData[0] || null
+			});
+		}else{
+			res.send({
+				code 		 : 500,
+				MessageCode  : errorData.code,
+				Message      : errorData.sqlMessage
+			});
+		}
+	}
+
+	var id = req.body.id;
+
+	userRepository.findOne(id, responseHanler);
+}
+
 function saveOne(req,res){
 
 	function responseHanler( errorData,successData ){
@@ -86,9 +113,9 @@ function updateOne(req,res){
 	console.log("Request to update user ",user);
 
 	var userDataToUpdate =  [user.name , user.role, user.userid.toUpperCase() , user.active,  user.updatedBy, user.updatedDate, user.id];
-	
+
 	console.log("User Data to update ",userDataToUpdate);
-	
+
 	userRepository.updateOne(userDataToUpdate, responseHanler);
 }
 
@@ -118,6 +145,7 @@ function deleteOne(req,res){
 
 module.exports = {
 		findAll 	: findAll,
+		findOne		: findOne,
 		saveOne 	: saveOne,
 		deleteOne 	: deleteOne,
 		updateOne 	: updateOne

@@ -8,7 +8,7 @@
 		<h4 class="modal-title" id="myMessageLabel">Create or edit a User</h4>
 	</div>
 	<div class="modal-body">
-		<div class="form-group" ng-show="vm.message.id">
+		<div class="form-group" ng-show="vm.user.id">
 			<label for="id">ID</label> <input type="text" class="form-control"
 				id="id" name="id" ng-model="vm.user.id" readonly />
 		</div>
@@ -42,7 +42,7 @@
 					This field is required.</p>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" ng-if="!vm.user.id">
 			<label class="control-label" for="field_password">Password</label> <input
 				type="text" class="form-control" name="password" id="field_password"
 				ng-model="vm.user.password" required />

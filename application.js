@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 router.post('/login',auth.login);
 
 router.post('/user/findAll',user.findAll);
+router.post('/user/findOne',user.findOne);
 router.post('/user/saveOne',user.saveOne);
 router.post('/user/deleteOne',user.deleteOne);
 router.post('/user/updateOne',user.updateOne);

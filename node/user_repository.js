@@ -4,6 +4,7 @@ const dbHelper = require('./../node/database_helper');
 const con 	   = dbHelper.connection;
 
 const FIND_ALL_QUERY 		= "select * from user";
+const FIND_ONE_QUERY 		= "select * from user where id = ?";
 const SAVE_ONE_QUERY 		= "insert into user (name , role, userid, password, active, createdBy, createdDate, updatedBy, updatedDate) values( ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
 const DELETE_ONE_QUERY		= "delete from user where id = ? ";
 const FIND_ID_BY_USERID_IC 	= "select id from user where UPPER(userid) = UPPER(?) ";
@@ -12,6 +13,17 @@ const UPDATE_ONE_QUERY 		= "update user set name = ? , role = ? , userid = ? , a
 function findAll(callback){
 
 	con.query(FIND_ALL_QUERY, [],  function (err, result) {
+		if (err){
+			callback(err,null);
+			return;
+		}
+		callback(null,result);
+	});
+}
+
+function findOne(id ,callback){
+
+	con.query(FIND_ONE_QUERY, [id],  function (err, result) {
 		if (err){
 			callback(err,null);
 			return;
@@ -71,5 +83,6 @@ module.exports = {
 		saveOne 		: saveOne,
 		updateOne		: updateOne,
 		deleteOne   	: deleteOne,
-		finIdByUserId 	: finIdByUserId
+		finIdByUserId 	: finIdByUserId,
+		findOne			: findOne
 };

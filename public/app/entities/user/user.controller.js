@@ -5,9 +5,9 @@
 	.module('productManagement')
 	.controller('UserController', UserController);
 
-	UserController.$inject = ['$scope', '$state','$uibModal','HttpService'];
+	UserController.$inject = ['$scope', '$state','$uibModal','UserService'];
 
-	function UserController ($scope, $state, $uibModal,HttpService) {
+	function UserController ($scope, $state, $uibModal,UserService) {
 		var vm = this;
 
 		vm.gridOptions = {
@@ -15,7 +15,7 @@
 				enableSorting: true,
 				enableFiltering: true,
 				columnDefs: [
-					{ name : 'Action',width: '8%',enableFiltering: false },
+					{ name : 'Action',width: '8%',enableFiltering: false,cellTemplate: "<button class='btn btn-primary btn-sm' ng-click='grid.appScope.editUser(row.entity.id)'><span class='glyphicon glyphicon-pencil'></span></button><button class='btn btn-primary btn-sm'><span class='glyphicon glyphicon-remove'></span></button>" },
 					{ field : 'id', name: 'id', displayName : 'ID' },
 					{ field : 'userid', name: 'userid', displayName : 'User Id' },
 					{ field : 'role', name : 'role', displayName : 'Role' },
@@ -24,7 +24,17 @@
 					]
 		};
 
-		function openEditDialog(data){
+		function init(){
+			UserService.findAll().then(
+					function(response){
+						vm.gridOptions.data = response.data;
+					},function(errData){
+						console.error("Error Occured while fetchig user data");
+					}
+			);
+		}
+
+		function openEditDialog(data, isEditMode){
 
 			$uibModal.open({
 				templateUrl: 'app/entities/user/user-dialog.html',
@@ -37,7 +47,12 @@
 						return data;
 					}
 				}
-			});
+			}).result.then(
+					function(res){
+						init();
+					},function(err){
+						init();
+					});
 		}
 
 		vm.creteUser = function (){
@@ -48,19 +63,16 @@
 					password: null,
 					active: null
 			};
-			openEditDialog(data);
+			openEditDialog(data, false);
 		};
 
+		vm.editUser = function (id){
+			console.log("Request to edit user with id ",id);
+			openEditDialog(UserService.findOne(id));
+		};
 
-		function init(){
-			HttpService.fetchPostData('api/user/findAll').then(
-					function(response){
-						vm.gridOptions.data = response.data;
-					},function(errData){
-						console.error("Error Occured while fetchig user data");
-					}
-			);
-		}
+		$scope.editUser = vm.editUser;
+
 
 		init();
 
