@@ -4,28 +4,121 @@ const userRepository = require('./../node/user_repository');
 
 function findAll(req,res){
 
-	function responseHanler(successData,errorData){
+	function responseHanler( errorData, successData ){
 		if(successData !== null){
-			
+
 			for(var i =0; i<successData.length; i++){
 				delete successData[i].password;
 			}
-			
+
 			res.send({
 				code : 200,
 				data : successData
 			});
 		}else{
 			res.send({
-				code : 500,
-				data : errorData
+				code 		 : 500,
+				MessageCode  : errorData.code,
+				Message      : errorData.sqlMessage
 			});
 		}
 	}
 
-	var result = userRepository.findAll(responseHanler);
+	userRepository.findAll(responseHanler);
+}
+
+function saveOne(req,res){
+
+	function responseHanler( errorData,successData ){
+		if(successData !== null){
+			res.send({
+				code : 200,
+				data : successData
+			});
+		}else{
+			res.send({
+				code         : 500,
+				MessageCode  : errorData.code,
+				Message      : errorData.sqlMessage
+			});
+		}
+	}
+
+	var user = req.body;
+	var loggedInUser = "ADMIN";
+	var currentDate = new Date();
+
+	user.createdBy   = loggedInUser;
+	user.createdDate = currentDate;
+	user.updatedBy   = loggedInUser;
+	user.updatedDate = currentDate;
+
+	console.log("Request to save user ",user);
+
+	var userDataToSave =  [user.name , user.role, user.userid.toUpperCase(), user.password, user.active, user.createdBy, user.createdDate, user.updatedBy, user.updatedDate];
+	userRepository.saveOne(userDataToSave, responseHanler);
+}
+
+function updateOne(req,res){
+
+	function responseHanler( errorData,successData ){
+		if(successData !== null){
+			res.send({
+				code : 200,
+				data : successData
+			});
+		}else{
+			res.send({
+				code         : 500,
+				MessageCode  : errorData.code,
+				Message      : errorData.sqlMessage
+			});
+		}
+	}
+
+	var user = req.body;
+	var loggedInUser = "ADMIN";
+	var currentDate = new Date();
+
+	user.updatedBy   = loggedInUser;
+	user.updatedDate = currentDate;
+
+	console.log("Request to update user ",user);
+
+	var userDataToUpdate =  [user.name , user.role, user.userid.toUpperCase() , user.active,  user.updatedBy, user.updatedDate, user.id];
+	
+	console.log("User Data to update ",userDataToUpdate);
+	
+	userRepository.updateOne(userDataToUpdate, responseHanler);
+}
+
+function deleteOne(req,res){
+
+	function responseHanler( errorData,successData ){
+		if(successData !== null){
+			res.send({
+				code : 200,
+				data : successData
+			});
+		}else{
+			res.send({
+				code 		 : 500,
+				MessageCode  : errorData.code,
+				Message      : errorData.sqlMessage
+			});
+		}
+	}
+
+	var user = req.body;
+
+	var idToDelete = user.id;
+
+	userRepository.deleteOne(idToDelete, responseHanler);
 }
 
 module.exports = {
-		findAll : findAll
+		findAll 	: findAll,
+		saveOne 	: saveOne,
+		deleteOne 	: deleteOne,
+		updateOne 	: updateOne
 };
