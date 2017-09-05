@@ -3,11 +3,11 @@
 
 	angular
 	.module('productManagement')
-	.service('UserService', UserService);
+	.service('ProductService', ProductService);
 
-	UserService.$inject = ['$q','HttpService'];
+	ProductService.$inject = ['$q','HttpService'];
 
-	function UserService ($q,HttpService) {
+	function ProductService ($q,HttpService) {
 
 		var USER_FIND_ALL_API_URL   = 'api/user/findAll'; 
 		var USER_FIND_ONE_API_URL   = 'api/user/findOne'; 

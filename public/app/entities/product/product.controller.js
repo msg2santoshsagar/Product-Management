@@ -3,11 +3,11 @@
 
 	angular
 	.module('productManagement')
-	.controller('UserController', UserController);
+	.controller('ProductController', ProductController);
 
-	UserController.$inject = ['$scope', '$state','$uibModal','UserService'];
+	ProductController.$inject = ['$scope', '$state','$uibModal','UserService'];
 
-	function UserController ($scope, $state, $uibModal,UserService) {
+	function ProductController ($scope, $state, $uibModal,UserService) {
 		var vm = this;
 
 		vm.gridOptions = {
