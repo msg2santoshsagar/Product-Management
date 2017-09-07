@@ -1,10 +1,10 @@
 {
-  "name": "ProductManagement",
+  "name": "productManagement",
   "version": "0.0.1",
   "description": "Application to manage product",
   "main": "application.js",
   "scripts": {
-    "postinstall": "bower install --config.interactive=false",
+    "postinstall": "bower install",
     "start": "node application.js",
     "deploy": "gcloud app deploy"
   },
