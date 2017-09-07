@@ -9,18 +9,18 @@
 
 	function ProductService ($q,HttpService) {
 
-		var USER_FIND_ALL_API_URL   = 'api/user/findAll'; 
-		var USER_FIND_ONE_API_URL   = 'api/user/findOne'; 
-		var USER_SAVE_ONE_API_URL   = 'api/user/saveOne';
-		var USER_UPDATE_ONE_API_URL = 'api/user/updateOne';
-		var USER_DELETE_ONE_API_URL = 'api/user/deleteOne';
+		var PRODUCT_FIND_ALL_API_URL   = 'api/product/findAll'; 
+		var PRODUCT_FIND_ONE_API_URL   = 'api/product/findOne'; 
+		var PRODUCT_SAVE_ONE_API_URL   = 'api/product/saveOne';
+		var PRODUCT_UPDATE_ONE_API_URL = 'api/product/updateOne';
+		var PRODUCT_DELETE_ONE_API_URL = 'api/product/deleteOne';
 
 
 		this.findAll =function(){
 
 			var deferred = $q.defer();
 
-			HttpService.fetchPostData(USER_FIND_ALL_API_URL).then(
+			HttpService.fetchPostData(PRODUCT_FIND_ALL_API_URL).then(
 					function(response){
 						deferred.resolve(response);
 					},function(errData){
@@ -34,7 +34,7 @@
 
 			var deferred = $q.defer();
 
-			HttpService.fetchPostData(USER_FIND_ONE_API_URL,{id : id}).then(
+			HttpService.fetchPostData(PRODUCT_FIND_ONE_API_URL,{id : id}).then(
 					function(response){
 						deferred.resolve(response.data);
 					},function(errData){
@@ -48,7 +48,7 @@
 
 			var deferred = $q.defer();
 
-			HttpService.fetchPostData(USER_SAVE_ONE_API_URL, userData).then(
+			HttpService.fetchPostData(PRODUCT_SAVE_ONE_API_URL, userData).then(
 					function(response){
 						deferred.resolve(response);
 					},function(errData){
@@ -62,7 +62,7 @@
 
 			var deferred = $q.defer();
 
-			HttpService.fetchPostData(USER_UPDATE_ONE_API_URL , userData).then(
+			HttpService.fetchPostData(PRODUCT_UPDATE_ONE_API_URL , userData).then(
 					function(response){
 						deferred.resolve(response);
 					},function(errData){
@@ -76,7 +76,7 @@
 
 			var deferred = $q.defer();
 
-			HttpService.fetchPostData( USER_DELETE_ONE_API_URL , userData).then(
+			HttpService.fetchPostData( PRODUCT_DELETE_ONE_API_URL , userData).then(
 					function(response){
 						deferred.resolve(response);
 					},function(errData){

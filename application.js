@@ -5,6 +5,7 @@ const express	 = 	require('express');
 const app 		 = 	express();
 const auth       = require('./node/authentication');
 const user       = require('./node/user_controller');
+const product    = require('./node/product_controller');
 const bodyParser = require('body-parser');
 
 var router = express.Router();
@@ -20,6 +21,12 @@ router.post('/user/findOne',user.findOne);
 router.post('/user/saveOne',user.saveOne);
 router.post('/user/deleteOne',user.deleteOne);
 router.post('/user/updateOne',user.updateOne);
+
+router.post('/product/findAll',product.findAll);
+router.post('/product/findOne',product.findOne);
+router.post('/product/saveOne',product.saveOne);
+router.post('/product/deleteOne',product.deleteOne);
+router.post('/product/updateOne',product.updateOne);
 
 app.use('/api', router);
 

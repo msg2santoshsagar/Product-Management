@@ -57,6 +57,7 @@
 
 		vm.creteUser = function (){
 			var data =  {
+					id  : null,
 					name: null,
 					role: null,
 					userid: null,
@@ -91,7 +92,7 @@
 					},function(err){
 						init();
 					});
-		}
+		};
 
 		init();
 

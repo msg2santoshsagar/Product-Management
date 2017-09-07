@@ -5,9 +5,9 @@
 	.module('productManagement')
 	.controller('ProductDeleteController',ProductDeleteController);
 
-	ProductDeleteController.$inject = ['$uibModalInstance', 'entity', 'UserService'];
+	ProductDeleteController.$inject = ['$uibModalInstance', 'entity', 'ProductService'];
 
-	function ProductDeleteController($uibModalInstance, entity, UserService) {
+	function ProductDeleteController($uibModalInstance, entity, ProductService) {
 		var vm = this;
 
 		vm.user = entity;
@@ -20,7 +20,7 @@
 
 		function confirmDelete (id) {
 
-			UserService.deleteOne( {id: id} ).then(function (result) {
+			ProductService.deleteOne( {id: id} ).then(function (result) {
 				$uibModalInstance.close(true);
 			},function (result) {
 				$uibModalInstance.close(false);

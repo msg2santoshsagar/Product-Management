@@ -5,12 +5,12 @@
 	.module('productManagement')
 	.controller('ProductDialogController', ProductDialogController);
 
-	ProductDialogController.$inject = ['UserService','entity','$uibModalInstance'];
+	ProductDialogController.$inject = ['ProductService','entity','$uibModalInstance'];
 
-	function ProductDialogController (UserService,entity,$uibModalInstance) {
+	function ProductDialogController (ProductService,entity,$uibModalInstance) {
 
 		var vm  = this;
-		vm.user = entity;
+		vm.product = entity;
 
 
 		console.log("ENTITY --- ",entity);
@@ -20,8 +20,8 @@
 		}
 
 
-		function saveOne(user){
-			UserService.saveOne(user).then(
+		function saveOne(product){
+			ProductService.saveOne(product).then(
 					function onSuccess(response){
 						console.log("Save Response found ",response);
 
@@ -36,12 +36,12 @@
 
 
 					},function onFail(errResponse){
-						console.error("Error Occured while saving user ",errResponse);
+						console.error("Error Occured while saving product ",errResponse);
 					});
 		}
 
-		function updateOne(user){
-			UserService.updateOne(user).then(
+		function updateOne(product){
+			ProductService.updateOne(product).then(
 					function onSuccess(response){
 						console.log("Save Response found ",response);
 
@@ -56,7 +56,7 @@
 
 
 					},function onFail(errResponse){
-						console.error("Error Occured while saving user ",errResponse);
+						console.error("Error Occured while saving product ",errResponse);
 					});
 		}
 
@@ -65,12 +65,12 @@
 			vm.error        = false;
 			vm.errorMessage = null; 
 
-			var user = vm.user;
-			console.log("Request to save user :: ",user);
-			if(user.id == null){
-				saveOne(user);
+			var product = vm.product;
+			console.log("Request to save product :: ",product);
+			if(product.id === null || product.id === undefined ){
+				saveOne(product);
 			}else{
-				updateOne(user);
+				updateOne(product);
 			}
 
 		};

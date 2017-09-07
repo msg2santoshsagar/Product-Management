@@ -16,3 +16,19 @@ CREATE TABLE `user` (
   `updatedDate` DATE NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `userid_UNIQUE` (`userid` ASC));
+
+#REM creating product table
+  
+  CREATE TABLE `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `current_stock` int(10) unsigned NOT NULL DEFAULT '0',
+  `threshold_stock` int(10) unsigned NOT NULL DEFAULT '10',
+  `createdBy` varchar(45) NOT NULL,
+  `createdDate` date NOT NULL,
+  `updatedBy` varchar(45) NOT NULL,
+  `updatedDate` date NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `product_name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+

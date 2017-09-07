@@ -67,7 +67,7 @@
 
 			var user = vm.user;
 			console.log("Request to save user :: ",user);
-			if(user.id == null){
+			if( user.id === null || user.id === undefined ){
 				saveOne(user);
 			}else{
 				updateOne(user);
