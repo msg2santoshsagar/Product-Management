@@ -10,6 +10,16 @@ var connection = mysql.createConnection({
 });
 
 
+
+connection.connect(function(err){
+	if(err){
+		throw err;
+	}
+	console.log("Connected to database");
+	
+});
+
+
 /*function executeQuery(query, param){
 	con.connect(function(err) {
 		if (err){

@@ -6,10 +6,10 @@ const DB_PWD  	= process.env.DBPWD  	|| 'root';
 const DB_SCHEMA = process.env.DBSCHEMA  || 'product_management_local';
 
 console.log ("DATA BASE PROPERTY");
-console.info("DB_HOST 	-> ",DB_HOST);
-console.info("DB_USER 	-> ",DB_USER);
-console.info("DB_PWD  	-> ",DB_PWD);
-console.info("DB_SCHEMA ->  ",DB_SCHEMA);
+console.log("DB_HOST 	-> ",DB_HOST);
+console.log("DB_USER 	-> ",DB_USER);
+console.log("DB_PWD  	-> ",DB_PWD);
+console.log("DB_SCHEMA ->  ",DB_SCHEMA);
 
 module.exports = {
 		DB_HOST 	: DB_HOST,
