@@ -4,6 +4,7 @@ var dbProperty 	= require('./../node/database_property');
 
 var connection = mysql.createConnection({
 	host		: dbProperty.DB_HOST,
+	port		: dbProperty.DB_PORT,
 	user		: dbProperty.DB_USER,
 	password	: dbProperty.DB_PWD,
 	database    : dbProperty.DB_SCHEMA
