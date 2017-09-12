@@ -5,7 +5,7 @@
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"
 			aria-hidden="true" ng-click="vm.clear()">&times;</button>
-		<h4 class="modal-title" id="myMessageLabel">Create or edit a Product</h4>
+		<h4 class="modal-title" id="myMessageLabel">Add product to stock</h4>
 	</div>
 	<div class="modal-body">
 		<div class="form-group" ng-show="vm.user.id">
@@ -13,29 +13,43 @@
 				id="id" name="id" ng-model="vm.product.id" readonly />
 		</div>
 		<div class="form-group">
-			<label class="control-label" for="field_name">Name</label> <input
-				type="text" class="form-control" name="name" id="field_name"
-				ng-model="vm.product.name" required />
+			<label class="control-label" for="field_name">Product Name</label> <select
+				class="form-control" ng-model="vm.product.product" required
+				name="name" id="field_name"
+				ng-options="product.name for product in vm.productList">
+			</select>
 			<div ng-show="editForm.name.$invalid">
 				<p class="help-block" ng-show="editForm.name.$error.required">
+					This field is required.</p>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label class="control-label" for="field_product_id">Product
+				ID</label> <input type="text" class="form-control" name="product_id"
+				id="field_product_id" ng-model="vm.product.product.id" required
+				readonly />
+			<div ng-show="editForm.product_id.$invalid">
+				<p class="help-block" ng-show="editForm.product_id.$error.required">
 					This field is required.</p>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="field_price">Price</label> <input
 				type="text" class="form-control" name="price" id="field_price"
-				ng-model="vm.product.price" required />
+				ng-model="vm.product.product.price" required />
 			<div ng-show="editForm.price.$invalid">
 				<p class="help-block" ng-show="editForm.price.$error.required">
 					This field is required.</p>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label" for="field_threshold">Threshlod Stock</label> <input
-				type="text" class="form-control" name="threshold" id="field_threshold"
-				ng-model="vm.product.threshold_stock" required />
-			<div ng-show="editForm.threshold.$invalid">
-				<p class="help-block" ng-show="editForm.threshold.$error.required">
+			<label class="control-label" for="field_quantity">Quantity</label> <input
+				type="text" class="form-control" name="quantity" id="field_quantity"
+				ng-model="vm.product.quantity" required />
+			<div ng-show="editForm.quantity.$invalid">
+				<p class="help-block" ng-show="editForm.quantity.$error.required">
 					This field is required.</p>
 			</div>
 		</div>

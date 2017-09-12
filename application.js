@@ -1,12 +1,13 @@
 /*jshint esversion: 6 */
 'use strict';
 
-const express	 = 	require('express');
-const app 		 = 	express();
-const auth       = require('./node/authentication');
-const user       = require('./node/user_controller');
-const product    = require('./node/product_controller');
-const bodyParser = require('body-parser');
+const express			 	= 	require('express');
+const app 				 	= 	express();
+const auth       		 	= require('./node/authentication');
+const user     			 	= require('./node/user_controller');
+const product  	  		  	= require('./node/product_controller');
+const productOrderHistory   = require('./node/product_order_history_controller');
+const bodyParser 			= require('body-parser');
 
 var router = express.Router();
 
@@ -27,6 +28,11 @@ router.post('/product/findOne',product.findOne);
 router.post('/product/saveOne',product.saveOne);
 router.post('/product/deleteOne',product.deleteOne);
 router.post('/product/updateOne',product.updateOne);
+
+router.post('/productOrderHistory/findAll',productOrderHistory.findAll);
+router.post('/productOrderHistory/findOne',productOrderHistory.findOne);
+router.post('/productOrderHistory/saveOne',productOrderHistory.saveOne);
+router.post('/productOrderHistory/deleteOne',productOrderHistory.deleteOne);
 
 app.use('/api', router);
 

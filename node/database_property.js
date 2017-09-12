@@ -20,5 +20,3 @@ module.exports = {
 		DB_PWD  	: DB_PWD,
 		DB_SCHEMA   : DB_SCHEMA
 };
-
-

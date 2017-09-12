@@ -1,6 +1,6 @@
 <div>
 	<h2>Products</h2>
-	<div class="container-fluid">
+	<div class="container-fluid" ng-if="vm.currentTabIndex === 0">
 		<div class="row">
 			<div class="col-xs-4 no-padding-left">
 				<button class="btn btn-primary" ng-click="vm.createProduct();">
@@ -10,9 +10,29 @@
 			</div>
 		</div>
 	</div>
+	<div class="container-fluid" ng-if="vm.currentTabIndex === 1">
+		<div class="row">
+			<div class="col-xs-4 no-padding-left">
+				<button class="btn btn-primary" ng-click="vm.createProductOrder();">
+					<span class="glyphicon glyphicon-plus"></span> <span>Add Product To Stock</span>
+				</button>
+			</div>
+		</div>
+	</div>
 	<br />
 
 
-	<div id="grid1" ui-grid="vm.gridOptions" class="grid-default"></div>
+
+
+
+	<uib-tabset active="active"> <uib-tab index="0" ng-click="vm.setTab(0);"
+		heading="PRODUCT">
+	<div id="grid1" ui-grid="vm.productGridOptions" class="grid-default"></div>
+	</uib-tab> <uib-tab index="1" ng-click="vm.setTab(1);" heading="PRODUCT ORDER HISTORY">
+	<div id="grid2" ui-grid="vm.productOrderHistorygridOptions"
+		class="grid-default"></div>
+	</uib-tab> </uib-tabset>
+
+
 
 </div>

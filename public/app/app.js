@@ -4,9 +4,11 @@
 	var app = angular
 	.module('productManagement', [
 		'ngStorage',
+		'ngSanitize',
 		'ui.router',
 		'ui.bootstrap',
-		'ui.grid'
+		'ui.grid',
+		'ui.select'
 		]);
 
 	app.config(config);
