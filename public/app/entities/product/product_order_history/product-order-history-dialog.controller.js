@@ -47,6 +47,8 @@
 			vm.errorMessage = null; 
 
 			var product = vm.product;
+			product.product_id =  product.product.id;
+			product.price 	   =  product.product.price; 
 			console.log("Request to save product order :: ",product);
 			saveOne(product);
 

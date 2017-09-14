@@ -78,7 +78,7 @@ function saveOne(req,res){
 
 	console.log("Request to save product ",product);
 
-	var productDataToSave =  [product.name.toUpperCase() , product.threshold_stock, product.createdBy, product.createdDate, product.updatedBy, product.updatedDate ];
+	var productDataToSave =  [product.name.toUpperCase(), product.price , product.threshold_stock, product.createdBy, product.createdDate, product.updatedBy, product.updatedDate ];
 	
 	console.log("Sending product data to save ",productDataToSave);
 	
@@ -111,7 +111,7 @@ function updateOne(req,res){
 
 	console.log("Request to update product ",product);
 
-	var userDataToUpdate =  [product.name.toUpperCase() , product.threshold_stock, product.updatedBy, product.updatedDate, product.id];
+	var userDataToUpdate =  [product.name.toUpperCase(), product.price , product.threshold_stock, product.updatedBy, product.updatedDate, product.id];
 
 	console.log("Product Data to update ",userDataToUpdate);
 

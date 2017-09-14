@@ -9,10 +9,11 @@
 
 	function ProductOrderHistoryService ($q,HttpService) {
 
-		var PRODUCT_FIND_ALL_API_URL   = 'api/productOrderHistory/findAll'; 
-		var PRODUCT_FIND_ONE_API_URL   = 'api/productOrderHistory/findOne'; 
-		var PRODUCT_SAVE_ONE_API_URL   = 'api/productOrderHistory/saveOne';
-		var PRODUCT_DELETE_ONE_API_URL = 'api/productOrderHistory/deleteOne';
+		var PRODUCT_FIND_ALL_API_URL   			= 'api/productOrderHistory/findAll'; 
+		var PRODUCT_FIND_ALL_CUSTOM_API_URL 	= 'api/productOrderHistory/findAllCustom'; 
+		var PRODUCT_FIND_ONE_API_URL   			= 'api/productOrderHistory/findOne'; 
+		var PRODUCT_SAVE_ONE_API_URL  			= 'api/productOrderHistory/saveOne';
+		var PRODUCT_DELETE_ONE_API_URL 			= 'api/productOrderHistory/deleteOne';
 
 
 		this.findAll =function(){
@@ -20,6 +21,20 @@
 			var deferred = $q.defer();
 
 			HttpService.fetchPostData(PRODUCT_FIND_ALL_API_URL).then(
+					function(response){
+						deferred.resolve(response);
+					},function(errData){
+						deferred.reject(errData);
+					}
+			);
+			return deferred.promise;
+		};
+		
+		this.findAllCustom =function(){
+
+			var deferred = $q.defer();
+
+			HttpService.fetchPostData(PRODUCT_FIND_ALL_CUSTOM_API_URL).then(
 					function(response){
 						deferred.resolve(response);
 					},function(errData){

@@ -21,7 +21,7 @@
 		}
 
 		function initProductOrderHistory() {
-			ProductOrderHistoryService.findAll().then(function(response) {
+			ProductOrderHistoryService.findAllCustom().then(function(response) {
 				vm.productOrderHistorygridOptions.data = response.data;
 			}, function(errData) {
 				console.error("Error Occured while fetchig product history data");
@@ -101,7 +101,8 @@
 					}, {
 						field : 'createdDate',
 						name : 'createdDate',
-						displayName : 'Date'
+						displayName : 'Date',
+						cellTooltip : true
 					} ]
 		};
 

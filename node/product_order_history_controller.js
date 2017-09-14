@@ -6,7 +6,8 @@ function findAll(req,res){
 
 	function responseHanler( errorData, successData ){
 		if(successData !== null){
-
+			console.log("****Product Order History ::  FINDALL :: ");
+			console.log(successData);
 			res.send({
 				code : 200,
 				data : successData
@@ -21,6 +22,28 @@ function findAll(req,res){
 	}
 
 	projectRepository.findAll(responseHanler);
+}
+
+function findAllCustom(req,res){
+
+	function responseHanler( errorData, successData ){
+		if(successData !== null){
+			console.log("****Product Order History ::  FINDALL CUSTOM:: ");
+			console.log(successData);
+			res.send({
+				code : 200,
+				data : successData
+			});
+		}else{
+			res.send({
+				code 		 : 500,
+				MessageCode  : errorData.code,
+				Message      : errorData.sqlMessage
+			});
+		}
+	}
+
+	projectRepository.findAllCustom(responseHanler);
 }
 
 function findOne(req,res){
@@ -78,7 +101,7 @@ function saveOne(req,res){
 
 	console.log("Request to save product order ",product);
 
-	var productDataToSave =  [product.name.toUpperCase() , product.threshold_stock, product.createdBy, product.createdDate, product.updatedBy, product.updatedDate ];
+	var productDataToSave =  [product.product_id , product.quantity, product.price, product.createdBy, product.createdDate, product.updatedBy, product.updatedDate ];
 	
 	console.log("Sending product data to save order",productDataToSave);
 	
@@ -110,8 +133,9 @@ function deleteOne(req,res){
 }
 
 module.exports = {
-		findAll 	: findAll,
-		findOne		: findOne,
-		saveOne 	: saveOne,
-		deleteOne 	: deleteOne
+		findAll 		: findAll,
+		findAllCustom 	: findAllCustom,
+		findOne			: findOne,
+		saveOne 		: saveOne,
+		deleteOne 		: deleteOne
 };

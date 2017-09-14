@@ -30,6 +30,7 @@ router.post('/product/deleteOne',product.deleteOne);
 router.post('/product/updateOne',product.updateOne);
 
 router.post('/productOrderHistory/findAll',productOrderHistory.findAll);
+router.post('/productOrderHistory/findAllCustom',productOrderHistory.findAllCustom);
 router.post('/productOrderHistory/findOne',productOrderHistory.findOne);
 router.post('/productOrderHistory/saveOne',productOrderHistory.saveOne);
 router.post('/productOrderHistory/deleteOne',productOrderHistory.deleteOne);
