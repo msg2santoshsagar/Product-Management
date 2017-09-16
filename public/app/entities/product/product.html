@@ -14,7 +14,8 @@
 		<div class="row">
 			<div class="col-xs-4 no-padding-left">
 				<button class="btn btn-primary" ng-click="vm.createProductOrder();">
-					<span class="glyphicon glyphicon-plus"></span> <span>Add Product To Stock</span>
+					<span class="glyphicon glyphicon-plus"></span> <span>Add
+						Product To Stock</span>
 				</button>
 			</div>
 		</div>
@@ -22,17 +23,14 @@
 	<br />
 
 
-
-
-
-	<uib-tabset active="active"> <uib-tab index="0" ng-click="vm.setTab(0);"
-		heading="PRODUCT">
-	<div id="grid1" ui-grid="vm.productGridOptions" class="grid-default"></div>
-	</uib-tab> <uib-tab index="1" ng-click="vm.setTab(1);" heading="PRODUCT ORDER HISTORY">
-	<div id="grid2" ui-grid="vm.productOrderHistorygridOptions" 
-		class="grid-default"></div>
+	<uib-tabset active="active"> <uib-tab index="0"
+		ng-click="vm.setTab(0);" heading="PRODUCT">
+	<div id="grid1" ui-grid="vm.productGridOptions" class="grid-default"
+		ui-grid-resize-columns></div>
+	</uib-tab> <uib-tab index="1" ng-click="vm.setTab(1);"
+		heading="PRODUCT ORDER HISTORY">
+	<div id="grid2" ui-grid="vm.productOrderHistorygridOptions"
+		ui-grid-resize-columns class="grid-default"></div>
 	</uib-tab> </uib-tabset>
-
-
 
 </div>

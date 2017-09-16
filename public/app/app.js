@@ -8,6 +8,7 @@
 		'ui.router',
 		'ui.bootstrap',
 		'ui.grid',
+		'ui.grid.resizeColumns',
 		'ui.select'
 		]);
 

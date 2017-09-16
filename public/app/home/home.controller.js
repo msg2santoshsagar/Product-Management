@@ -13,11 +13,14 @@
 		var WEBSOCKET_END_POINT = "/websocket";
 		var sock  				= null;
 
+		var rowtpl='<div class="color-white" ><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader , \'backgroud-green\':row.entity.current_stock >= row.entity.threshold_stock, \'background-red\':row.entity.current_stock < row.entity.threshold_stock }" ui-grid-cell></div></div>';
+
+
 		vm.dashBoardOption = {
 				enableGridMenu : true,
 				enableSorting : true,
 				enableFiltering : true,
-				//rowTemplate: '<div ng-style="{\'cursor\': row.cursor, \'z-index\': col.zIndex() }" ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-cell></div>',
+				rowTemplate: rowtpl,
 				columnDefs : [
 					{
 						field : 'id',
@@ -133,7 +136,7 @@
 			var eventData = data.data;
 
 			switch(eventCode){
-			case 'PRODUCT_ADDED' : handleProductAddedEvent(eventData);
+			case 'PRODUCT_ADDED'   : handleProductAddedEvent(eventData);
 			break;
 			case 'PRODUCT_UPDATED' : handleProductUpdatedEvent(eventData);
 			break;

@@ -1,6 +1,6 @@
 @CHARSET "ISO-8859-1";
 
-.bodyContainer{
+.bodyContainer {
 	background-color: #ffefff;
 }
 
@@ -15,16 +15,31 @@
 	letter-spacing: 1px;
 	text-align: center;
 }
-.min-height-420{
-	min-height:420px;
+
+.min-height-420 {
+	min-height: 420px;
 }
 
 .grid-default {
-  width: 100%;
-  height: 250px;
+	width: 100%;
+	height: 250px;
 }
 
 .grid-dashboard {
-  width: 100%;
-  height: 320px;
+	width: 100%;
+	height: 320px;
+}
+
+.color-white{
+	color: white;
+}
+
+.backgroud-green {
+	background-color: #43ab21 !important;
+	border-bottom: white 1px solid !important;
+}
+
+.background-red {
+	background-color: #ff0505 !important;
+	border-bottom: white 1px solid !important;
 }
