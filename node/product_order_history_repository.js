@@ -8,6 +8,7 @@ const FIND_ALL_QUERY_CUSTOM	= "select poh.id, poh.product_id , p.name product_na
 const FIND_ONE_QUERY 		= "select * from product_order_history where id = ?";
 const SAVE_ONE_QUERY 		= "insert into product_order_history (product_id , quantity, price , createdBy, createdDate, updatedBy, updatedDate) values( ?, ?, ?, ?, ?, ?, ? ) ";
 const DELETE_ONE_QUERY		= "delete from product_order_history where id = ? ";
+const UPDATE_PRODUCT_QTY    = "update product set current_stock = current_stock + ? , price = ?  , updatedBy = ? , updatedDate = ? where id = ? ";
 
 function findAll(callback){
 
@@ -65,10 +66,53 @@ function deleteOne(id ,callback){
 	});
 }
 
+
+function saveAndUpdateProduct(productData , callback){
+	con.beginTransaction(function(err) {
+
+		if (err) { 
+			throw err; 
+		}
+
+		con.query(SAVE_ONE_QUERY, productData, function(err, result) {
+			if (err) { 
+				con.rollback(function() {
+					throw err;
+				});
+			}
+
+			var ProductTableData = [productData[1], productData[2], productData[5], productData[6], productData[0]];
+
+			console.log("**Product Table Data **** ",ProductTableData);
+			
+			con.query(UPDATE_PRODUCT_QTY, ProductTableData , function(err, result) {
+				if (err) { 
+					con.rollback(function() {
+						throw err;
+					});
+				}  
+				con.commit(function(err) {
+					if (err) { 
+						con.rollback(function() {
+							throw err;
+						});
+					}
+					console.log('Transaction Complete.');
+					//con.end();
+					callback(null,result);
+				});
+			});
+		});
+	});
+
+}
+
+
 module.exports = {
 		findAll 				: findAll,
 		findAllCustom			: findAllCustom,
 		saveOne 				: saveOne,
+		saveAndUpdateProduct	: saveAndUpdateProduct,
 		deleteOne   			: deleteOne,
 		findOne					: findOne
 };

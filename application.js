@@ -3,11 +3,15 @@
 
 const express			 	= 	require('express');
 const app 				 	= 	express();
-const auth       		 	= require('./node/authentication');
-const user     			 	= require('./node/user_controller');
-const product  	  		  	= require('./node/product_controller');
-const productOrderHistory   = require('./node/product_order_history_controller');
-const bodyParser 			= require('body-parser');
+const auth       		 	= 	require('./node/authentication');
+const user     			 	= 	require('./node/user_controller');
+const product  	  		  	= 	require('./node/product_controller');
+const productOrderHistory   = 	require('./node/product_order_history_controller');
+const wsservice			    = 	require('./node/websocket_service');
+const bodyParser 			= 	require('body-parser');
+
+var http = require('http');
+
 
 var router = express.Router();
 
@@ -44,7 +48,21 @@ app.get('*', function(req, res) {
 
 //Start the server
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+
+
+app.server = http.createServer(app);
+
+wsservice.websocketServer.installHandlers(app.server);
+
+
+app.server.listen(PORT, () => {
 	console.log(`App listening on port ${PORT}`);
 	console.log('Press Ctrl+C to quit.');
 });
+
+
+
+/*var appServer = app.listen(PORT, () => {
+	console.log(`App listening on port ${PORT}`);
+	console.log('Press Ctrl+C to quit.');
+});*/

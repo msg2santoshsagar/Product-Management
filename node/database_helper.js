@@ -7,7 +7,8 @@ var connection = mysql.createConnection({
 	port		: dbProperty.DB_PORT,
 	user		: dbProperty.DB_USER,
 	password	: dbProperty.DB_PWD,
-	database    : dbProperty.DB_SCHEMA
+	database    : dbProperty.DB_SCHEMA,
+	timezone	: 'UTC+05:30'
 });
 
 

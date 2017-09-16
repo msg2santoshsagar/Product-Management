@@ -29,6 +29,11 @@
 		}
 
 		vm.setTab =function(tabIndex){
+
+			if( tabIndex === vm.currentTabIndex ){
+				return;
+			}
+
 			vm.currentTabIndex = tabIndex;
 			if( tabIndex === 0 ){
 				initProduct();
@@ -47,27 +52,33 @@
 						name : 'Action',
 						width : '8%',
 						enableFiltering : false,
-						cellTemplate : "<div><button class='btn btn-primary btn-sm' ng-click='grid.appScope.editProduct(row.entity.id)'><span class='glyphicon glyphicon-pencil'></span></button><button class='btn btn-primary btn-sm' ng-click='grid.appScope.openDeleteDialogBox(row.entity.id)'><span class='glyphicon glyphicon-remove'></span></button></div>"
+						cellTemplate : "<div><button class='btn btn-primary btn-sm' ng-click='grid.appScope.editProduct(row.entity.id)'><span class='glyphicon glyphicon-pencil'></span></button><button class='btn btn-primary btn-sm' ng-click='grid.appScope.openDeleteDialogBox(row.entity.id)'><span class='glyphicon glyphicon-remove'></span></button></div>",
+						cellTooltip : true
 					}, {
 						field : 'id',
 						name : 'id',
-						displayName : 'ID'
+						displayName : 'ID',
+						cellTooltip : true
 					}, {
 						field : 'name',
 						name : 'name',
-						displayName : 'Name'
+						displayName : 'Name',
+						cellTooltip : true
 					}, {
 						field : 'price',
 						name : 'price',
-						displayName : 'Price'
+						displayName : 'Price',
+						cellTooltip : true
 					}, {
 						field : 'current_stock',
 						name : 'current_stock',
-						displayName : 'Current Stock'
+						displayName : 'Current Stock',
+						cellTooltip : true
 					}, {
 						field : 'threshold_stock',
 						name : 'threshold_stock',
-						displayName : 'Threshold Stock'
+						displayName : 'Threshold Stock',
+						cellTooltip : true
 					} ]
 		};
 
@@ -81,34 +92,37 @@
 					{
 						field : 'id',
 						name : 'id',
-						displayName : 'ID'
+						displayName : 'ID',
+						sort: { direction: 'desc', priority: 0 } ,
+						cellTooltip : true
 					},{
 						field : 'product_id',
 						name : 'product_id',
-						displayName : 'Product ID'
+						displayName : 'Product ID',
+						cellTooltip : true
 					}, {
 						field : 'product_name',
 						name : 'product_name',
-						displayName : 'Product Name'
+						displayName : 'Product Name',
+						cellTooltip : true
 					}, {
 						field : 'price',
 						name : 'price',
-						displayName : 'Price'
+						displayName : 'Price',
+						cellTooltip : true
 					}, {
 						field : 'quantity',
 						name : 'quantity',
-						displayName : 'Quantity'
+						displayName : 'Quantity',
+						cellTooltip : true
 					}, {
 						field : 'createdDate',
 						name : 'createdDate',
 						displayName : 'Date',
+						cellFilter: 'date:\'dd-MM-yyyy hh:mm:ss a\' : \'UTC+05:30\' ',
 						cellTooltip : true
 					} ]
 		};
-
-
-
-
 
 
 		function openEditDialog(data) {

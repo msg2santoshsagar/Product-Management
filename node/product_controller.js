@@ -1,12 +1,15 @@
 /*jshint esversion: 6 */
 
 const projectRepository = require('./../node/product_repository');
+const webSocketService  = require('./../node/websocket_service');
+const emitter 			= require('./../node/customEventEmitter');
+
+
 
 function findAll(req,res){
 
 	function responseHanler( errorData, successData ){
 		if(successData !== null){
-
 			res.send({
 				code : 200,
 				data : successData
@@ -79,9 +82,9 @@ function saveOne(req,res){
 	console.log("Request to save product ",product);
 
 	var productDataToSave =  [product.name.toUpperCase(), product.price , product.threshold_stock, product.createdBy, product.createdDate, product.updatedBy, product.updatedDate ];
-	
+
 	console.log("Sending product data to save ",productDataToSave);
-	
+
 	projectRepository.saveOne(productDataToSave, responseHanler);
 }
 
@@ -89,6 +92,10 @@ function updateOne(req,res){
 
 	function responseHanler( errorData,successData ){
 		if(successData !== null){
+
+			console.log("EMITTING UPDATE DASHBOARD");
+			emitter.emitEvent( 'UPDATE_DASHBOARD', 'PRODUCT_UPDATED' ,successData);
+
 			res.send({
 				code : 200,
 				data : successData
@@ -141,6 +148,8 @@ function deleteOne(req,res){
 
 	projectRepository.deleteOne(idToDelete, responseHanler);
 }
+
+//emitter.on( 'UPDATE_DASHBOARD', webSocketService.updateDashboardHandler);
 
 module.exports = {
 		findAll 	: findAll,

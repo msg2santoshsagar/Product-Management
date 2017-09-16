@@ -105,7 +105,7 @@ function saveOne(req,res){
 	
 	console.log("Sending product data to save order",productDataToSave);
 	
-	projectRepository.saveOne(productDataToSave, responseHanler);
+	projectRepository.saveAndUpdateProduct(productDataToSave, responseHanler);
 }
 
 function deleteOne(req,res){
