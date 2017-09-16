@@ -55,8 +55,22 @@ function findOne(req,res){
 
 function saveOne(req,res){
 
+	var product = req.body;
+	var loggedInUser = "ADMIN";
+	var currentDate = new Date();
+
+	product.createdBy   = loggedInUser;
+	product.createdDate = currentDate;
+	product.updatedBy   = loggedInUser;
+	product.updatedDate = currentDate;
+
 	function responseHanler( errorData,successData ){
 		if(successData !== null){
+
+			product.id =successData.insertId;
+
+			emitter.emitEvent( 'UPDATE_DASHBOARD', 'PRODUCT_ADDED' ,product);
+
 			res.send({
 				code : 200,
 				data : successData
@@ -69,15 +83,6 @@ function saveOne(req,res){
 			});
 		}
 	}
-
-	var product = req.body;
-	var loggedInUser = "ADMIN";
-	var currentDate = new Date();
-
-	product.createdBy   = loggedInUser;
-	product.createdDate = currentDate;
-	product.updatedBy   = loggedInUser;
-	product.updatedDate = currentDate;
 
 	console.log("Request to save product ",product);
 
@@ -90,11 +95,17 @@ function saveOne(req,res){
 
 function updateOne(req,res){
 
+	var product = req.body;
+	var loggedInUser = "ADMIN";
+	var currentDate = new Date();
+
+	product.updatedBy   = loggedInUser;
+	product.updatedDate = currentDate;
+
 	function responseHanler( errorData,successData ){
 		if(successData !== null){
 
-			console.log("EMITTING UPDATE DASHBOARD");
-			emitter.emitEvent( 'UPDATE_DASHBOARD', 'PRODUCT_UPDATED' ,successData);
+			emitter.emitEvent( 'UPDATE_DASHBOARD', 'PRODUCT_UPDATED' ,product);
 
 			res.send({
 				code : 200,
@@ -109,12 +120,7 @@ function updateOne(req,res){
 		}
 	}
 
-	var product = req.body;
-	var loggedInUser = "ADMIN";
-	var currentDate = new Date();
 
-	product.updatedBy   = loggedInUser;
-	product.updatedDate = currentDate;
 
 	console.log("Request to update product ",product);
 
@@ -127,8 +133,15 @@ function updateOne(req,res){
 
 function deleteOne(req,res){
 
+	var product = req.body;
+
+	var idToDelete = product.id;
+
 	function responseHanler( errorData,successData ){
 		if(successData !== null){
+
+			emitter.emitEvent( 'UPDATE_DASHBOARD', 'PRODUCT_DELETED' ,product);
+
 			res.send({
 				code : 200,
 				data : successData
@@ -141,10 +154,6 @@ function deleteOne(req,res){
 			});
 		}
 	}
-
-	var user = req.body;
-
-	var idToDelete = user.id;
 
 	projectRepository.deleteOne(idToDelete, responseHanler);
 }
