@@ -109,6 +109,28 @@
 			setDashboardProductList( productList );
 		}
 
+		function handleProductOrderAddedEvent(productData){
+
+			var productList = vm.dashBoardOption.data;
+
+			if(productList === null || productList === undefined){
+				return;
+			}
+
+			for(var i = 0; i < productList.length ;i++){
+
+				var product = productList[i]; 
+
+				if( product.id === productData.product_id ){
+
+					product.price 			= productData.price;
+					product.current_stock 	= productData.current_stock;
+
+				}
+			}
+			setDashboardProductList( productList );
+		}
+
 		function handleProductDeletedEvent(productData){
 
 			var productList = vm.dashBoardOption.data;
@@ -141,6 +163,8 @@
 			case 'PRODUCT_UPDATED' : handleProductUpdatedEvent(eventData);
 			break;
 			case 'PRODUCT_DELETED' : handleProductDeletedEvent(eventData);
+			break;
+			case 'PRODUCT_ORDER_ADDED' : handleProductOrderAddedEvent(eventData);
 			break;
 			default : console.error("No Handler defined for event :: ",eventCode);
 

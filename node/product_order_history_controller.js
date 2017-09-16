@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 
 const projectRepository = require('./../node/product_order_history_repository');
+const emitter 			= require('./../node/customEventEmitter');
 
 function findAll(req,res){
 
@@ -75,8 +76,21 @@ function findOne(req,res){
 
 function saveOne(req,res){
 
+	var product = req.body;
+	var loggedInUser = "ADMIN";
+	var currentDate = new Date();
+
+	product.createdBy   = loggedInUser;
+	product.createdDate = currentDate;
+	product.updatedBy   = loggedInUser;
+	product.updatedDate = currentDate;
+
 	function responseHanler( errorData,successData ){
 		if(successData !== null){
+
+			product.current_stock =  successData[0].current_stock;
+			emitter.emitEvent( 'UPDATE_DASHBOARD', 'PRODUCT_ORDER_ADDED' ,product);
+
 			res.send({
 				code : 200,
 				data : successData
@@ -90,21 +104,13 @@ function saveOne(req,res){
 		}
 	}
 
-	var product = req.body;
-	var loggedInUser = "ADMIN";
-	var currentDate = new Date();
-
-	product.createdBy   = loggedInUser;
-	product.createdDate = currentDate;
-	product.updatedBy   = loggedInUser;
-	product.updatedDate = currentDate;
 
 	console.log("Request to save product order ",product);
 
 	var productDataToSave =  [product.product_id , product.quantity, product.price, product.createdBy, product.createdDate, product.updatedBy, product.updatedDate ];
-	
+
 	console.log("Sending product data to save order",productDataToSave);
-	
+
 	projectRepository.saveAndUpdateProduct(productDataToSave, responseHanler);
 }
 

@@ -26,7 +26,7 @@
 					function onSuccess(response){
 						console.log("Save Response found ",response);
 
-						if(response.code  === 200 && response.data.affectedRows === 1){
+						if(response.code  === 200){
 							clear();
 						}else if(response.code  === 500){
 							vm.error = true;
@@ -67,7 +67,7 @@
 						console.error("Error occured while fetching product list ",errResponse);
 					});
 		}
-		
+
 		init();
 
 

@@ -9,6 +9,7 @@ const FIND_ONE_QUERY 		= "select * from product_order_history where id = ?";
 const SAVE_ONE_QUERY 		= "insert into product_order_history (product_id , quantity, price , createdBy, createdDate, updatedBy, updatedDate) values( ?, ?, ?, ?, ?, ?, ? ) ";
 const DELETE_ONE_QUERY		= "delete from product_order_history where id = ? ";
 const UPDATE_PRODUCT_QTY    = "update product set current_stock = current_stock + ? , price = ?  , updatedBy = ? , updatedDate = ? where id = ? ";
+const FIND_PRODUCT_QTY		= "select current_stock from product where id = ?";
 
 function findAll(callback){
 
@@ -84,22 +85,29 @@ function saveAndUpdateProduct(productData , callback){
 			var ProductTableData = [productData[1], productData[2], productData[5], productData[6], productData[0]];
 
 			console.log("**Product Table Data **** ",ProductTableData);
-			
+
 			con.query(UPDATE_PRODUCT_QTY, ProductTableData , function(err, result) {
 				if (err) { 
 					con.rollback(function() {
 						throw err;
 					});
 				}  
-				con.commit(function(err) {
+				con.query(FIND_PRODUCT_QTY , productData[0] , function(err, result){
 					if (err) { 
 						con.rollback(function() {
 							throw err;
 						});
-					}
-					console.log('Transaction Complete.');
-					//con.end();
-					callback(null,result);
+					} 
+					con.commit(function(err) {
+						if (err) { 
+							con.rollback(function() {
+								throw err;
+							});
+						}
+						console.log('Transaction Complete.');
+						//con.end();
+						callback(null,result);
+					});
 				});
 			});
 		});
