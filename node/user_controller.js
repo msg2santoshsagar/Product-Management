@@ -72,7 +72,7 @@ function saveOne(req,res){
 	}
 
 	var user = req.body;
-	var loggedInUser = "ADMIN";
+	var loggedInUser = "1";
 	var currentDate = new Date();
 
 	user.createdBy   = loggedInUser;
@@ -104,7 +104,7 @@ function updateOne(req,res){
 	}
 
 	var user = req.body;
-	var loggedInUser = "ADMIN";
+	var loggedInUser = "1";
 	var currentDate = new Date();
 
 	user.updatedBy   = loggedInUser;

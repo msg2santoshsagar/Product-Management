@@ -56,7 +56,7 @@ function findOne(req,res){
 function saveOne(req,res){
 
 	var product = req.body;
-	var loggedInUser = "ADMIN";
+	var loggedInUser = "1";
 	var currentDate = new Date();
 
 	product.createdBy   = loggedInUser;
@@ -96,7 +96,7 @@ function saveOne(req,res){
 function updateOne(req,res){
 
 	var product = req.body;
-	var loggedInUser = "ADMIN";
+	var loggedInUser = "1";
 	var currentDate = new Date();
 
 	product.updatedBy   = loggedInUser;

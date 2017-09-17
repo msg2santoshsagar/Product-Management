@@ -1,0 +1,103 @@
+
+<style>
+.select2>.select2-choice.ui-select-match {
+	/* Because of the inclusion of Bootstrap */
+	height: 29px;
+}
+
+.selectize-control>.selectize-dropdown {
+	top: 36px;
+}
+/* Some additional styling to demonstrate that append-to-body helps achieve the proper z-index layering. */
+.select-box {
+	background: #fff;
+	position: relative;
+	z-index: 1;
+}
+
+.alert-info.positioned {
+	margin-top: 1em;
+	position: relative;
+	z-index: 10000; /* The select2 dropdown has a z-index of 9999 */
+}
+
+.uiSelect {
+	min-width: 300px;
+}
+</style>
+
+
+
+<div>
+
+	<div>
+		<span class="page-header">CREATE NEW ORDER</span>
+		<button ng-click="vm.refresh();" class="btn btn-primary btn-sm">
+			RESET <span class="glyphicon glyphicon-refresh"></span>
+		</button>
+	</div>
+
+	<br />
+
+	<!-- <div class="row">
+		<div class="col-md-12">
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="id">Product ID :</label> <input type="text"
+						class="form-control" id="id" ng-model="vm.product.id">
+				</div>
+				<div class="form-group">
+					<label for="name">Product Name :</label> <input type="text"
+						class="form-control" id="name" ng-model="vm.product.name">
+				</div>
+				<div class="form-group">
+					<label for="quantity">Quantity :</label><input type="text"
+						class="form-control" id="quantity" ng-model="vm.product.quantity">
+				</div>
+				<button type="submit" class="btn btn-primary btn-default">ADD</button>
+			</form>
+		</div>
+	</div> -->
+
+	<div class="row">
+		<div class="col-md-12">
+			<form class="form-inline" ng-submit="vm.addProductToList();">
+				<div class="form-group">
+					<label for="product">Product :</label>
+					<ui-select ng-model="vm.product.selectedProduct" theme="select2"
+						autofocus class="uiSelect" id="product" ng-disabled="false"
+						title="Choose a product" required> <ui-select-match
+						placeholder="Choose product by name or id">{{$select.selected.name}}</ui-select-match>
+					<ui-select-choices
+						repeat="product in vm.availableProductList | propsFilter: {name: $select.search, id: $select.search}"">
+					<div ng-bind-html="product.name | highlight: $select.search"></div>
+					<small>ID : <span
+						ng-bind-html="''+product.id | highlight: $select.search"></span>,
+						Price: {{product.price}}, Current Stock :
+						{{product.current_stock}}
+					</small> </ui-select-choices> </ui-select>
+				</div>
+				<div class="form-group">
+					<label for="quantity">Quantity :</label><input type="text"
+						class="form-control" id="quantity" ng-model="vm.product.quantity"
+						autocomplete="off" required>
+				</div>
+				<button type="submit" class="btn btn-primary btn-default">ADD</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<p class="pull-right grandTotal">
+				GRAND TOTAL : <span class="grandTotalAmount">{{vm.grandTotal}}</span>
+			</p>
+		</div>
+		<br />
+	</div>
+
+
+	<div id="grid1" ui-grid="vm.orderGridOptions" class="grid grid-sale"
+		ui-grid-edit ui-grid-selection></div>
+
+</div>

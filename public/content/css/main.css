@@ -25,12 +25,17 @@
 	height: 250px;
 }
 
+.grid-sale {
+	width: 100%;
+	height: 300px;
+}
+
 .grid-dashboard {
 	width: 100%;
 	height: 320px;
 }
 
-.color-white{
+.color-white {
 	color: white;
 }
 
@@ -42,4 +47,18 @@
 .background-red {
 	background-color: #ff0505 !important;
 	border-bottom: white 1px solid !important;
+}
+
+.grandTotal {
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 2;
+	letter-spacing: 1px;
+}
+
+.grandTotalAmount {
+	background-color: blueviolet;
+	color: white;
+	padding: 5px;
+	font-size: 20px;
 }

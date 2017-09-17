@@ -9,6 +9,8 @@
 		'ui.bootstrap',
 		'ui.grid',
 		'ui.grid.resizeColumns',
+		'ui.grid.edit',
+		'ui.grid.selection',
 		'ui.select'
 		]);
 

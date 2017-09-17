@@ -12,14 +12,20 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li ng-class="{active: vm.$state.includes('home')}"><a
-						href="#" ui-sref="home"><span class="glyphicon glyphicon-home"></span> HOME</a></li>
+						href="#" ui-sref="home"><span class="glyphicon glyphicon-home"></span>
+							HOME</a></li>
 					<li ng-class="{active: vm.$state.includes('user')}"><a
-						href="#" ui-sref="user"><span class="glyphicon glyphicon-user"></span> USER MANAGEMENT</a></li>
+						href="#" ui-sref="user"><span class="glyphicon glyphicon-user"></span>
+							USER MANAGEMENT</a></li>
 					<li ng-class="{active: vm.$state.includes('product')}"><a
-						href="#" ui-sref="product"><span class="glyphicon glyphicon-globe"></span> PRODUCT</a></li>
+						href="#" ui-sref="product"><span
+							class="glyphicon glyphicon-globe"></span> PRODUCT</a></li>
+					<li ng-class="{active: vm.$state.includes('sale')}"><a
+						href="#" ui-sref="sale"><span
+							class="glyphicon glyphicon-list-alt"></span> SALE</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+					<li><a href="#"><span class="glyphicon glyphicon-off"></span>
 							Log Out</a></li>
 					<li><a href="#" ng-click="vm.login();"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
