@@ -86,18 +86,39 @@
 			</form>
 		</div>
 	</div>
+	<br />
 
 	<div class="row">
-		<div class="col-md-12">
-			<p class="pull-right grandTotal">
-				GRAND TOTAL : <span class="grandTotalAmount">{{vm.grandTotal}}</span>
-			</p>
+		<div class="col-md-9">
+			<div id="grid1" ui-grid="vm.orderGridOptions" class="grid grid-sale"
+				ui-grid-edit ui-grid-selection></div>
 		</div>
-		<br />
+		<div class="col-md-3">
+			<table class="table">
+				<tr>
+					<th>TOTAL ITEM</th>
+					<td>:</td>
+					<td>{{vm.orderGridOptions.data.length}}</td>
+				</tr>
+				<tr>
+					<th>TOTAL PRODUCT</th>
+					<td>:</td>
+					<td>{{vm.totalProductCount(vm.orderGridOptions.data)}}</td>
+				</tr>
+				<tr>
+					<th>GRAND TOTAL</th>
+					<td>:</td>
+					<td>{{vm.grandTotal}}</td>
+				</tr>
+				<tr>
+					<td colspan="3"><button class="btn btn-primary btn-sm"
+							ng-click="vm.createOrder();">ORDER</button></td>
+				</tr>
+			</table>
+
+		</div>
 	</div>
 
 
-	<div id="grid1" ui-grid="vm.orderGridOptions" class="grid grid-sale"
-		ui-grid-edit ui-grid-selection></div>
 
 </div>

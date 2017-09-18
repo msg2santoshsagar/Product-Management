@@ -24,7 +24,7 @@
 				enableRowSelection: true,
 				enableRowHeaderSelection: false,
 				multiSelect : false,
-				showGridFooter:true,
+				showGridFooter:false,
 				showColumnFooter: false,
 				columnDefs: [
 					{ 
@@ -148,6 +148,20 @@
 		}
 		$scope.removeProduct =removeProduct;
 
+		vm.totalProductCount = function(data){
+			if(data === null || data === undefined || data.length === 0){
+				return 0;
+			}
+			var totalProductCount = 0;
+
+			for(var i = 0; i < data.length; i++ ){
+				var cp = data[i];
+				totalProductCount = totalProductCount + cp.quantity;
+			}
+			return totalProductCount;
+
+		};
+
 
 		function addProductToList(product){
 
@@ -194,6 +208,26 @@
 			addProductToList(productObj);
 
 		};
+		
+		function validateProductList(productList){
+			return true;
+		}
+		
+		vm.createOrder = function (){
+			var productList = vm.orderGridOptions.data;
+			
+			if( ! validateProductList(productList) ){
+				$window.alert("product list validation failed");
+				return;
+			}
+			
+			console.log("Data to create order ==> ",productList);
+			
+			
+			
+		};
+		
+		
 
 
 	}
