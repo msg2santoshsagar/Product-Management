@@ -30,6 +30,13 @@ function createOrder(req,res){
 }
 
 
+function eventHandler(code, payload){
+	emitter.emitEvent( 'UPDATE_DASHBOARD', code , payload);
+}
+
+emitter.registerEvent( 'ORDER_CREATED', eventHandler);
+
+
 module.exports = {
 		createOrder : createOrder
 };

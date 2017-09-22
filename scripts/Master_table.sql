@@ -87,7 +87,7 @@ CREATE TABLE `sale` (
   `updatedDate` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
- ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 #REM creating sale product list
 

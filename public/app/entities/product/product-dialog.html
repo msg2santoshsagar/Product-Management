@@ -15,7 +15,7 @@
 		<div class="form-group">
 			<label class="control-label" for="field_name">Name</label> <input
 				type="text" class="form-control" name="name" id="field_name"
-				ng-model="vm.product.name" required />
+				ng-model="vm.product.name" required autocomplete="off"/>
 			<div ng-show="editForm.name.$invalid">
 				<p class="help-block" ng-show="editForm.name.$error.required">
 					This field is required.</p>
@@ -24,7 +24,7 @@
 		<div class="form-group">
 			<label class="control-label" for="field_price">Price</label> <input
 				type="text" class="form-control" name="price" id="field_price"
-				ng-model="vm.product.price" required />
+				ng-model="vm.product.price" required autocomplete="off" />
 			<div ng-show="editForm.price.$invalid">
 				<p class="help-block" ng-show="editForm.price.$error.required">
 					This field is required.</p>
@@ -33,7 +33,7 @@
 		<div class="form-group">
 			<label class="control-label" for="field_threshold">Threshlod Stock</label> <input
 				type="text" class="form-control" name="threshold" id="field_threshold"
-				ng-model="vm.product.threshold_stock" required />
+				ng-model="vm.product.threshold_stock" required autocomplete="off" />
 			<div ng-show="editForm.threshold.$invalid">
 				<p class="help-block" ng-show="editForm.threshold.$error.required">
 					This field is required.</p>
