@@ -221,7 +221,8 @@
 				return;
 			}
 			
-			console.log("Data to create order ==> ",productList);
+			console.log("Data to create order ==> ");
+			console.log( JSON.stringify(productList) );
 			
 			
 			

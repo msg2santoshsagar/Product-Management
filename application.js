@@ -7,6 +7,7 @@ const auth       		 	= 	require('./node/authentication');
 const user     			 	= 	require('./node/user_controller');
 const product  	  		  	= 	require('./node/product_controller');
 const productOrderHistory   = 	require('./node/product_order_history_controller');
+const sale				    = 	require('./node/sale_controller');
 const wsservice			    = 	require('./node/websocket_service');
 const bodyParser 			= 	require('body-parser');
 
@@ -38,6 +39,8 @@ router.post('/productOrderHistory/findAllCustom',productOrderHistory.findAllCust
 router.post('/productOrderHistory/findOne',productOrderHistory.findOne);
 router.post('/productOrderHistory/saveOne',productOrderHistory.saveOne);
 router.post('/productOrderHistory/deleteOne',productOrderHistory.deleteOne);
+
+router.post('/sale/createOrder',sale.createOrder);
 
 app.use('/api', router);
 

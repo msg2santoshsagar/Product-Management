@@ -1,6 +1,14 @@
 #REM creating schema
 CREATE DATABASE `product_management_local` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
+#Drop Table Commands
+DROP TABLE IF EXISTS `product_order_history`;
+DROP TABLE IF EXISTS `sale_product_list`;
+DROP TABLE IF EXISTS `sale`;
+DROP TABLE IF EXISTS `product`;
+DROP TABLE IF EXISTS `user`;
+
+
 #REM creating user table 
 
 CREATE TABLE `user` (
@@ -71,22 +79,21 @@ CREATE TABLE `product_order_history` (
 #REM creating sale table
 
 CREATE TABLE `sale` (
-  `id` int(11) NOT NULL,
-  `order_no` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `total_amount` float NOT NULL,
   `createdBy` int(11) NOT NULL,
   `createdDate` datetime NOT NULL,
   `updatedBy` int(11) NOT NULL,
   `updatedDate` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `order_no_UNIQUE` (`order_no`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #REM creating sale product list
 
 CREATE TABLE `sale_product_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_no` int(10) unsigned NOT NULL,
+  `order_no` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `price` float NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -94,7 +101,6 @@ CREATE TABLE `sale_product_list` (
   PRIMARY KEY (`id`),
   KEY `order_no_fk_idx` (`order_no`),
   KEY `product_id_fk_idx` (`product_id`),
-  CONSTRAINT `order_no_fk` FOREIGN KEY (`order_no`) REFERENCES `sale` (`order_no`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `order_no_fk` FOREIGN KEY (`order_no`) REFERENCES `sale` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

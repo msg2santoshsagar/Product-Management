@@ -1,7 +1,6 @@
 /*jshint esversion: 6 */
 
 const projectRepository = require('./../node/product_repository');
-const webSocketService  = require('./../node/websocket_service');
 const emitter 			= require('./../node/customEventEmitter');
 
 
@@ -157,8 +156,6 @@ function deleteOne(req,res){
 
 	projectRepository.deleteOne(idToDelete, responseHanler);
 }
-
-//emitter.on( 'UPDATE_DASHBOARD', webSocketService.updateDashboardHandler);
 
 module.exports = {
 		findAll 	: findAll,
