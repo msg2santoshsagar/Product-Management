@@ -1,0 +1,62 @@
+
+<div ng-cloak ng-if="vm.validatorObj.valid">
+
+	<!-- Modal content-->
+	<div class="modal-content">
+		<div class="modal-header">
+			<h4 class="modal-title">ORDER SUMMARY</h4>
+		</div>
+		<div class="modal-body">
+			<table class="table">
+				<tr>
+					<th>ORDER NO</th>
+					<td>:</td>
+					<td>{{vm.orderDetail.orderId}}</td>
+				</tr>
+				<tr>
+					<th>DATE</th>
+					<td>:</td>
+					<td>{{vm.orderDetail.orderDate | date:'dd-MM-yyyy hh:mm:ss a'
+						: 'UTC+05:30'}}</td>
+				</tr>
+				<tr>
+					<th>TOTAL ITEM</th>
+					<td>:</td>
+					<td>{{vm.orderDetail.totalItem}}</td>
+				</tr>
+				<tr>
+					<th>TOTAL PRODUCT</th>
+					<td>:</td>
+					<td>{{vm.orderDetail.totalProduct}}</td>
+				</tr>
+				<tr>
+					<th>GRAND TOTAL</th>
+					<td>:</td>
+					<td>{{vm.orderDetail.totalAmount}}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" ng-click="vm.ok()">OK</button>
+		</div>
+	</div>
+
+</div>
+
+
+<div ng-cloak ng-if="!vm.validatorObj.valid">
+
+	<!-- Modal content-->
+	<div class="modal-content">
+		<div class="modal-header">
+			<h4 class="modal-title">ORDER FAILED</h4>
+		</div>
+		<div class="modal-body">
+			<p>{{vm.validatorObj.reason}}</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" ng-click="vm.ok()">OK</button>
+		</div>
+	</div>
+
+</div>

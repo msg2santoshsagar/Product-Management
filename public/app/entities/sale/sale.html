@@ -98,12 +98,12 @@
 				<tr>
 					<th>TOTAL ITEM</th>
 					<td>:</td>
-					<td>{{vm.orderGridOptions.data.length}}</td>
+					<td>{{vm.totalItemCount(vm.orderGridOptions.data) }}</td>
 				</tr>
 				<tr>
 					<th>TOTAL PRODUCT</th>
 					<td>:</td>
-					<td>{{vm.totalProductCount(vm.orderGridOptions.data)}}</td>
+					<td>{{vm.orderGridOptions.data.length}}</td>
 				</tr>
 				<tr>
 					<th>GRAND TOTAL</th>
@@ -112,6 +112,7 @@
 				</tr>
 				<tr>
 					<td colspan="3"><button class="btn btn-primary btn-sm"
+							ng-disabled=" ! vm.orderGridOptions.data.length > 0"
 							ng-click="vm.createOrder();">ORDER</button></td>
 				</tr>
 			</table>

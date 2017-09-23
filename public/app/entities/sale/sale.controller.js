@@ -7,12 +7,13 @@
 	.module('productManagement')
 	.controller('SaleController', SaleController);
 
-	SaleController.$inject = ['$scope', '$state','$uibModal','ProductService','$window','uiGridConstants','$timeout'];
+	SaleController.$inject = ['$scope', '$state','$uibModal','ProductService','$window','uiGridConstants','$timeout','SaleService'];
 
-	function SaleController ($scope, $state, $uibModal,ProductService,$window,uiGridConstants,$timeout) {
+	function SaleController ($scope, $state, $uibModal,ProductService,$window,uiGridConstants,$timeout,SaleService) {
 		var vm = this;
 
 		vm.availableProductList = [];
+		vm.productIdMap			= {};
 
 		var orderList = [];
 
@@ -86,6 +87,7 @@
 			ProductService.findAll().then(
 					function(response){
 						vm.availableProductList = response.data;
+						createProductIdMap(vm.availableProductList);
 					},function(errResponse){
 						console.error("Error occured while fetching product list ",errResponse);
 					});
@@ -96,6 +98,18 @@
 			if(elem !== null || elem !== undefined){
 				elem.focus();
 			}
+		}
+
+		function createProductIdMap(productList){
+
+			if(productList === null || productList.length === 0){
+				vm.productIdMap = {};
+			}
+
+			for( var i =0; i < productList.length ; i++ ){
+				vm.productIdMap[productList[i].id] = productList[i]; 
+			}
+
 		}
 
 		function init(){
@@ -111,7 +125,7 @@
 		}
 		init();
 
-		vm.refresh = function(){
+		vm.refresh = function refresh(){
 			init();
 		};
 
@@ -148,17 +162,17 @@
 		}
 		$scope.removeProduct =removeProduct;
 
-		vm.totalProductCount = function(data){
+		vm.totalItemCount = function(data){
 			if(data === null || data === undefined || data.length === 0){
 				return 0;
 			}
-			var totalProductCount = 0;
+			var totalItemCount = 0;
 
 			for(var i = 0; i < data.length; i++ ){
 				var cp = data[i];
-				totalProductCount = totalProductCount + cp.quantity;
+				totalItemCount = totalItemCount + cp.quantity;
 			}
-			return totalProductCount;
+			return totalItemCount;
 
 		};
 
@@ -208,27 +222,90 @@
 			addProductToList(productObj);
 
 		};
-		
-		function validateProductList(productList){
-			return true;
+
+
+
+		function validateProductList(productListParam){
+
+			var validatorObj = {
+					valid 	: true,
+					reason 	: 'Valid'
+			};
+
+			for(var i = 0; i < productListParam.length ; i++  ){
+				var product = vm.productIdMap[productListParam[i].id];
+				if( product.current_stock < productListParam[i].quantity ){
+					validatorObj.valid 	= false;
+					validatorObj.reason = "Available stock of "+product.name+" is "+product.current_stock+". Please review order.";
+				}
+			}
+
+			return validatorObj;
 		}
-		
+
 		vm.createOrder = function (){
+
+			delete $scope.validatorObj ;
+			delete $scope.orderDetail ;
+
 			var productList = vm.orderGridOptions.data;
-			
-			if( ! validateProductList(productList) ){
-				$window.alert("product list validation failed");
+
+			var validatorObj = validateProductList(productList); 
+			$scope.validatorObj = validatorObj;
+
+			if( ! validatorObj.valid ){
+
+				$uibModal.open({
+					templateUrl  : 'app/entities/sale/order_modal.html',
+					controller   : 'OrderModalController',
+					controllerAs : 'vm',
+					backdrop 	 : 'static',
+					size 		 : 'md',
+					scope 		 : $scope
+				}).result.then(function successCallback(){
+					console.log("Modal closed");
+				},function errorCallBack(){
+					console.log("Order modal closed by cancel..");
+				});
 				return;
 			}
-			
+
 			console.log("Data to create order ==> ");
 			console.log( JSON.stringify(productList) );
-			
-			
-			
+
+			SaleService.createOrder(productList).then(
+					function sucessCallback(response){
+						console.log("Order created");
+						console.log("Order details - ",response);
+
+						$scope.orderDetail = response.data;
+
+						$uibModal.open({
+							templateUrl 	: 'app/entities/sale/order_modal.html',
+							controller 		: 'OrderModalController',
+							controllerAs 	: 'vm',
+							backdrop 		: 'static',
+							size			: 'md',
+							scope 			: $scope
+						}).result.then(function successCallback(){
+							vm.refresh();
+						},function errorCallBack(){
+							console.log("Order modal closed by cancel..");
+						});
+
+
+
+
+					},function errorCallback(err){
+						console.error("Error Occured while creating order");
+					}
+			);
+
+
+
 		};
-		
-		
+
+
 
 
 	}

@@ -9,18 +9,13 @@
 
 	function SaleService ($q,HttpService) {
 
-		var USER_FIND_ALL_API_URL   = 'api/user/findAll'; 
-		var USER_FIND_ONE_API_URL   = 'api/user/findOne'; 
-		var USER_SAVE_ONE_API_URL   = 'api/user/saveOne';
-		var USER_UPDATE_ONE_API_URL = 'api/user/updateOne';
-		var USER_DELETE_ONE_API_URL = 'api/user/deleteOne';
+		var CREATE_ORDER_API = "api/sale/createOrder";
 
-
-		this.findAll =function(){
+		this.createOrder =function( productList ){
 
 			var deferred = $q.defer();
 
-			HttpService.fetchPostData(USER_FIND_ALL_API_URL).then(
+			HttpService.fetchPostData(CREATE_ORDER_API, productList).then(
 					function(response){
 						deferred.resolve(response);
 					},function(errData){
@@ -30,61 +25,7 @@
 			return deferred.promise;
 		};
 
-		this.findOne =function(id){
 
-			var deferred = $q.defer();
-
-			HttpService.fetchPostData(USER_FIND_ONE_API_URL,{id : id}).then(
-					function(response){
-						deferred.resolve(response.data);
-					},function(errData){
-						deferred.reject(errData);
-					}
-			);
-			return deferred.promise;
-		};
-
-		this.saveOne =function(userData){
-
-			var deferred = $q.defer();
-
-			HttpService.fetchPostData(USER_SAVE_ONE_API_URL, userData).then(
-					function(response){
-						deferred.resolve(response);
-					},function(errData){
-						deferred.reject(errData);
-					}
-			);
-			return deferred.promise;
-		};
-
-		this.updateOne =function(userData){
-
-			var deferred = $q.defer();
-
-			HttpService.fetchPostData(USER_UPDATE_ONE_API_URL , userData).then(
-					function(response){
-						deferred.resolve(response);
-					},function(errData){
-						deferred.reject(errData);
-					}
-			);
-			return deferred.promise;
-		};
-		
-		this.deleteOne =function(userData){
-
-			var deferred = $q.defer();
-
-			HttpService.fetchPostData( USER_DELETE_ONE_API_URL , userData).then(
-					function(response){
-						deferred.resolve(response);
-					},function(errData){
-						deferred.reject(errData);
-					}
-			);
-			return deferred.promise;
-		};
 
 	}
 })();

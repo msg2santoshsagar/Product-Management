@@ -18,14 +18,22 @@ function insertQueryBuilder (query , param){
 
 function createOrder( productList , user , callback ){
 
-	var totalAmount = 0;
-	var currentDate = new Date();
-
+	var totalAmount 	= 0;
+	var currentDate 	= new Date();
+	var resultObject	= {};
+	var totalItem		= 0;
+	var totalProduct	= productList.length;
+	
 
 	for( var i =0; i< productList.length; i++){
 		totalAmount  =  totalAmount + ( productList[i].price * productList[i].quantity );
+		totalItem    =  totalItem   + productList[i].quantity;
 	}
 
+	resultObject.totalAmount = totalAmount;
+	resultObject.orderDate	 = currentDate;
+	resultObject.totalItem	 = totalItem;
+	resultObject.totalProduct= totalProduct;
 	console.log("Total Amount to create order - ",totalAmount);
 
 	var orderObject = [ totalAmount, user, currentDate, user, currentDate];
@@ -37,11 +45,13 @@ function createOrder( productList , user , callback ){
 	chain.
 	on('commit', function(){
 		console.log('Commit Successfull');
-		emitter.emitEvent( 'ORDER_CREATED', 'NEW_ORDER' ,currentStockObj );
+		emitter.emitEvent( 'ORDER_CREATED', 'NEW_ORDER_PLACED' ,currentStockObj );
+		callback(null,resultObject);
 	}).
 	on('rollback', function(err){
 		console.log("Error occured while doing transaction");
 		console.log(err);
+		callback(err,null);
 	});
 
 	function resultHandler(result){
@@ -57,6 +67,7 @@ function createOrder( productList , user , callback ){
 	on('result', function(result){
 		var orderId = result.insertId;
 		console.log("ORDER ID == > ",orderId);
+		resultObject.orderId = orderId;
 
 		for(var i = 0; i < productList.length ; i += 1 ) {
 			// loop in transaction
@@ -64,7 +75,7 @@ function createOrder( productList , user , callback ){
 			var product    = productList[i];
 			var productObj = [ orderId, product.id, product.price, product.quantity, product.price * product.quantity ];
 			var updateProductObj = [product.quantity , product.id ];
-			
+
 			chain.
 			query(SALE_PRODUCT_INSERT_QUERY , productObj ).
 			query(UPDATE_PROJECT_CURRENT_STOCK , updateProductObj ).
@@ -74,8 +85,6 @@ function createOrder( productList , user , callback ){
 
 	});
 
-
-	callback(null,productList);
 
 }
 
