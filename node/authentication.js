@@ -1,70 +1,64 @@
 /*jshint esversion: 6 */
 
-const dbHelper 	 = 	require('./../node/database_helper');
+var NodeSession 	= 	require('node-session');
+var myFunction    	= 	require('./../node/my_function');
 
-module.exports.login = function(req,res){
+function login(req,res){
 
-	var userId   = null;
+	var userName   = null;
 	var password = null;
 
 	var reqBody = req.body;
+
 	if( reqBody !== null){
-		userId   = reqBody.userId;
+		userName   = reqBody.username;
 		password = reqBody.password;
 	}
 
 
-	if(userId === null ){
+	if(userName === null ){
 		res.send({
 			"code": 200,
-			"failed":"userId is missing"
+			"status" : "failed",
+			"reason":"user name is missing"
 		});
 	}
 
 	if(password === null ){
 		res.send({
 			"code": 200,
-			"failed":"password is missing"
+			"status" : "failed",
+			"reason":"password is missing"
 		});
 	}
 
-	var result = dbHelper.executeQuery('select * from user where userid = ?',[userId]);
-	res.send({
-		"code": 200,
-		"data": result
-	});
 
-	/*var email= req.body.email;
-	var password = req.body.password;
-	connection.query('SELECT * FROM users WHERE email = ?',[email], function (error, results, fields) {
-		if (error) {
-			// console.log("error ocurred",error);
-			res.send({
-				"code":400,
-				"failed":"error ocurred"
-			})
-		}else{
-			// console.log('The solution is: ', results);
-			if(results.length >0){
-				if([0].password == password){
-					res.send({
-						"code":200,
-						"success":"login sucessfull"
-					});
-				}
-				else{
-					res.send({
-						"code":204,
-						"success":"Email and password does not match"
-					});
-				}
-			}
-			else{
-				res.send({
-					"code":204,
-					"success":"Email does not exits"
-				});
-			}
-		}
-	});*/
+	if(userName === password){
+
+		// init 
+		var	session = new NodeSession( {secret: myFunction.generateRandomString(32) });
+
+		session.startSession(req, res, function(session){
+			console.log("Session created  ==> ",session);
+		});
+
+		req.session.put('userName', userName);
+
+		res.send({
+			"code": 200,
+			"status" : "pass"
+		});
+	}else{
+		res.send({
+			"code": 200,
+			"status" : "failed",
+			"reason" :"Please check your credentials and try again."
+		});
+	}
+
+}
+
+
+module.exports = {
+		login 	: login
 };
