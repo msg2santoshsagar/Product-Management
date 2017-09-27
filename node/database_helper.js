@@ -65,5 +65,6 @@ connection.connect(function(err){
  */
 module.exports = {
 		connection	:	connection,
-		trCon		:	trCon
+		trCon		:	trCon,
+		data		: dbPropertyObject
 };

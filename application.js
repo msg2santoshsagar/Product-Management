@@ -11,16 +11,39 @@ const sale				    = 	require('./node/sale_controller');
 const wsservice			    = 	require('./node/websocket_service');
 const bodyParser 			= 	require('body-parser');
 
+const NodeSession 			= 	require('node-session');
+//const dbProperty 			= 	require('./node/database_property');
+
 var http = require('http');
 
-
 var router = express.Router();
+
+var nodeSession = new NodeSession({
+	'secret' 	: 'Q3UBzdH0GDBCiRCTKbi5MTPyChpzXLsTA'/*,
+	'driver' 	: 'database',
+	'lifetime'	:  30 * 60 * 1000,
+	'connection': {
+		'host': dbProperty.DB_HOST,
+		'port': dbProperty.DB_PORT,
+		'user': dbProperty.DB_USER,
+		'password': dbProperty.DB_PWD,
+		'database': dbProperty.DB_SCHEMA
+	},
+	'table': 'sessions',*/
+});
+
+function session(req, res, next){
+	nodeSession.startSession(req, res, next);
+}
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session);
 
 router.post('/login',auth.login);
+router.post('/currentUser',auth.currentLoggedInUser);
+router.post('/logout',auth.logout);
 
 router.post('/user/findAll',user.findAll);
 router.post('/user/findOne',user.findOne);

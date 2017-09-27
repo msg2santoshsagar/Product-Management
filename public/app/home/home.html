@@ -1,15 +1,21 @@
 <div ng-cloak>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="row">
-				<div class="col-md-2">
-					<h4>
-						DashBoard <span class="glyphicon glyphicon-dashboard"></span>
-					</h4>
-				</div>
-			</div>
-
-			<div id="grid1" ui-grid="vm.dashBoardOption" class="grid-dashboard"></div>
+			<h4 ng-click="vm.temp()">HOME</h4>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12" ng-if="!vm.user.loggedIn">
+					<p>Login to start using application.</p>
+				</div>
+				<div class="col-md-12" ng-if="vm.user.loggedIn">Welcome
+					{{vm.user.name}} ({{vm.user.role}})</div>
+			</div>
+
+		</div>
+	</div>
+
 </div>
