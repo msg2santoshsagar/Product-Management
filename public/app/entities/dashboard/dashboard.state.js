@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider.state('dashboard', {
             parent: 'app',
-            url: '/',
+            url: '/dashboard',
             views: {
                 'content@': {
                     templateUrl: 'app/entities/dashboard/dashboard.html',
