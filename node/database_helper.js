@@ -12,6 +12,10 @@ var dbPropertyObject = {
 };
 
 
+if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
+	dbPropertyObject.socketPath = "/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}";
+}
+
 var connection = mysql.createConnection(dbPropertyObject);
 
 var trCon = transaction({
