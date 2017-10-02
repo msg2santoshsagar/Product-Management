@@ -69,7 +69,7 @@ function login(req,res){
 			}
 
 		}else{
-			res.send({
+			res.status(500).send({
 				code         : 500,
 				status		 : "failed",
 				"reason" 	 : "System is facing some issue, please try later",
@@ -81,29 +81,6 @@ function login(req,res){
 
 
 	userRepository.findOneByUserId(userName,loginResponseHandler);
-
-	/*if(userName === password){
-
-		req.session.put('userId', 1);
-		req.session.put('userName', userName);
-		req.session.put('role', "ADMIN");
-
-		if(userName.toLowerCase() !== "admin"){
-			req.session.put('role', "SALESMAN"); //TODO : CHange this
-		}
-
-
-		res.send({
-			"code": 200,
-			"status" : "pass"
-		});
-	}else{
-		res.send({
-			"code": 200,
-			"status" : "failed",
-			"reason" :"Please check your credentials and try again."
-		});
-	}*/
 
 }
 

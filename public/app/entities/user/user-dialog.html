@@ -7,15 +7,22 @@
 			aria-hidden="true" ng-click="vm.clear()">&times;</button>
 		<h4 class="modal-title" id="myMessageLabel">Create or edit a User</h4>
 	</div>
+
+	<div class="ng-top-margin:10px; col-md-12">
+		<div class="alert alert-danger" ng-show="vm.error">
+			<strong>Failed to save user! </strong> {{vm.errorMessage}}
+		</div>
+	</div>
+
 	<div class="modal-body">
 		<div class="form-group" ng-show="vm.user.id">
 			<label for="id">ID</label> <input type="text" class="form-control"
-				id="id" name="id" ng-model="vm.user.id" readonly  autocomplete="off"/>
+				id="id" name="id" ng-model="vm.user.id" readonly autocomplete="off" />
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="field_userid">User Id</label> <input
-				type="text" class="form-control" name="userid" id="field_userid" autocomplete="off"
-				ng-model="vm.user.userid" required />
+				type="text" class="form-control" name="userid" id="field_userid"
+				autocomplete="off" ng-model="vm.user.userid" required />
 			<div ng-show="editForm.userid.$invalid">
 				<p class="help-block" ng-show="editForm.userid.$error.required">
 					This field is required.</p>
@@ -23,8 +30,8 @@
 		</div>
 		<div class="form-group">
 			<label class="control-label" for="field_name">Name</label> <input
-				type="text" class="form-control" name="name" id="field_name" autocomplete="off"
-				ng-model="vm.user.name" required />
+				type="text" class="form-control" name="name" id="field_name"
+				autocomplete="off" ng-model="vm.user.name" required />
 			<div ng-show="editForm.name.$invalid">
 				<p class="help-block" ng-show="editForm.name.$error.required">
 					This field is required.</p>
@@ -44,8 +51,8 @@
 		</div>
 		<div class="form-group" ng-if="!vm.user.id">
 			<label class="control-label" for="field_password">Password</label> <input
-				type="text" class="form-control" name="password" id="field_password" autocomplete="off"
-				ng-model="vm.user.password" required />
+				type="text" class="form-control" name="password" id="field_password"
+				autocomplete="off" ng-model="vm.user.password" required />
 			<div ng-show="editForm.password.$invalid">
 				<p class="help-block" ng-show="editForm.password.$error.required">
 					This field is required.</p>

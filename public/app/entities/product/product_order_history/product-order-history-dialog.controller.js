@@ -20,25 +20,21 @@
 			$uibModalInstance.dismiss('cancel');
 		}
 
+		function onSuccess(response){
+			console.log("Save Response found ",response);
+			clear();
+
+		}
+
+		function onFail(errResponse){
+			console.error("Error Occured while updating product ",errResponse);
+			vm.error = true;
+			var errData = errResponse.data;
+			vm.errorMessage = errData.Message;
+		}
 
 		function saveOne(product){
-			ProductOrderHistoryService.saveOne(product).then(
-					function onSuccess(response){
-						console.log("Save Response found ",response);
-
-						if(response.code  === 200){
-							clear();
-						}else if(response.code  === 500){
-							vm.error = true;
-							if(response.MessageCode === "ER_DUP_ENTRY"){
-								vm.errorMessage = response.Message;
-							}
-						}
-
-
-					},function onFail(errResponse){
-						console.error("Error Occured while saving product ",errResponse);
-					});
+			ProductOrderHistoryService.saveOne(product).then(onSuccess,onFail);
 		}
 
 		vm.save = function(){
@@ -54,9 +50,7 @@
 
 		};
 
-
 		vm.clear = clear;
-
 
 		function init(){
 			ProductService.findAll().then(
@@ -69,7 +63,6 @@
 		}
 
 		init();
-
 
 	}
 })();

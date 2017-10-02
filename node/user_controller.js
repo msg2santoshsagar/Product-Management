@@ -16,7 +16,7 @@ function findAll(req,res){
 				data : successData
 			});
 		}else{
-			res.send({
+			res.status(500).send({
 				code 		 : 500,
 				MessageCode  : errorData.code,
 				Message      : errorData.sqlMessage
@@ -41,7 +41,7 @@ function findOne(req,res){
 				data : successData[0] || null
 			});
 		}else{
-			res.send({
+			res.status(500).send({
 				code 		 : 500,
 				MessageCode  : errorData.code,
 				Message      : errorData.sqlMessage
@@ -63,7 +63,7 @@ function saveOne(req,res){
 				data : successData
 			});
 		}else{
-			res.send({
+			res.status(500).send({
 				code         : 500,
 				MessageCode  : errorData.code,
 				Message      : errorData.sqlMessage
@@ -95,7 +95,7 @@ function updateOne(req,res){
 				data : successData
 			});
 		}else{
-			res.send({
+			res.status(500).send({
 				code         : 500,
 				MessageCode  : errorData.code,
 				Message      : errorData.sqlMessage
@@ -128,7 +128,7 @@ function deleteOne(req,res){
 				data : successData
 			});
 		}else{
-			res.send({
+			res.status(500).send({
 				code 		 : 500,
 				MessageCode  : errorData.code,
 				Message      : errorData.sqlMessage

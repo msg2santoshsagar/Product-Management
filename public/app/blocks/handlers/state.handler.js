@@ -1,57 +1,52 @@
 (function() {
-    'use strict';
+	'use strict';
 
-    angular
-        .module('productManagement')
-        .factory('stateHandler', stateHandler);
+	angular
+	.module('productManagement')
+	.factory('stateHandler', stateHandler);
 
-    stateHandler.$inject = ['$rootScope', '$state', '$sessionStorage',  '$window', 'VERSION'];
+	stateHandler.$inject = ['$rootScope', '$state', '$sessionStorage',  '$window', 'VERSION'];
 
-    function stateHandler($rootScope, $state, $sessionStorage,  $window, VERSION) {
-        return {
-            initialize: initialize
-        };
+	function stateHandler($rootScope, $state, $sessionStorage,  $window, VERSION) {
+		return {
+			initialize: initialize
+		};
 
-        function initialize() {
-        	
-        	console.log("State Handler Called");        	
-            $rootScope.VERSION = VERSION;
+		function initialize() {
 
-            var stateChangeStart = $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams, fromState) {
-                $rootScope.toState = toState;
-                $rootScope.toStateParams = toStateParams;
-                $rootScope.fromState = fromState;
+			$rootScope.VERSION = VERSION;
 
-                // Redirect to a state with an external URL (http://stackoverflow.com/a/30221248/1098564)
-                if (toState.external) {
-                    event.preventDefault();
-                    $window.open(toState.url, '_self');
-                }
+			var stateChangeStart = $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams, fromState) {
+				$rootScope.toState = toState;
+				$rootScope.toStateParams = toStateParams;
+				$rootScope.fromState = fromState;
 
-                if (Principal.isIdentityResolved()) {
-                    Auth.authorize();
-                }
+				// Redirect to a state with an external URL (http://stackoverflow.com/a/30221248/1098564)
+				if (toState.external) {
+					event.preventDefault();
+					$window.open(toState.url, '_self');
+				}
 
-            });
+			});
 
-            var stateChangeSuccess = $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
-                var titleKey = 'Product Management Sample' ;
+			var stateChangeSuccess = $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
+				var titleKey = 'Product Management';
 
-                // Set the page title key to the one configured in state or use default one
-                if (toState.data.pageTitle) {
-                    titleKey = toState.data.pageTitle;
-                }
-                $window.document.title = titleKey;
-            });
+				// Set the page title key to the one configured in state or use default one
+				if (toState.data.pageTitle) {
+					titleKey = toState.data.pageTitle;
+				}
+				$window.document.title = titleKey;
+			});
 
-            $rootScope.$on('$destroy', function () {
-                if(angular.isDefined(stateChangeStart) && stateChangeStart !== null){
-                    stateChangeStart();
-                }
-                if(angular.isDefined(stateChangeSuccess) && stateChangeSuccess !== null){
-                    stateChangeSuccess();
-                }
-            });
-        }
-    }
+			$rootScope.$on('$destroy', function () {
+				if(angular.isDefined(stateChangeStart) && stateChangeStart !== null){
+					stateChangeStart();
+				}
+				if(angular.isDefined(stateChangeSuccess) && stateChangeSuccess !== null){
+					stateChangeSuccess();
+				}
+			});
+		}
+	}
 })();

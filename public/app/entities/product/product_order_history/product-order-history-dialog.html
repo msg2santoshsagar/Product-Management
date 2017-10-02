@@ -7,6 +7,13 @@
 			aria-hidden="true" ng-click="vm.clear()">&times;</button>
 		<h4 class="modal-title" id="myMessageLabel">Add product to stock</h4>
 	</div>
+
+	<div class="ng-top-margin:10px; col-md-12">
+		<div class="alert alert-danger" ng-show="vm.error">
+			<strong>Failed to add product to stock! </strong> {{vm.errorMessage}}
+		</div>
+	</div>
+
 	<div class="modal-body">
 		<div class="form-group" ng-show="vm.user.id">
 			<label for="id">ID</label> <input type="text" class="form-control"

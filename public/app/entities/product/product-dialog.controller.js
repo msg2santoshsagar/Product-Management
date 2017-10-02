@@ -20,44 +20,30 @@
 		}
 
 
+
+		function onSuccess(response){
+			console.log("Save Response found ",response);
+			clear();
+
+		}
+
+		function onFail(errResponse){
+			console.error("Error Occured while updating product ",errResponse);
+			vm.error = true;
+			var errData = errResponse.data;
+			if(errData.MessageCode === "ER_DUP_ENTRY"){
+				vm.errorMessage = "This product name is already registered";
+			}else{
+				vm.errorMessage = errData.Message;
+			}
+		}
+
 		function saveOne(product){
-			ProductService.saveOne(product).then(
-					function onSuccess(response){
-						console.log("Save Response found ",response);
-
-						if(response.code  === 200 && response.data.affectedRows === 1){
-							clear();
-						}else if(response.code  === 500){
-							vm.error = true;
-							if(response.MessageCode === "ER_DUP_ENTRY"){
-								vm.errorMessage = response.Message;
-							}
-						}
-
-
-					},function onFail(errResponse){
-						console.error("Error Occured while saving product ",errResponse);
-					});
+			ProductService.saveOne(product).then(onSuccess,onFail);
 		}
 
 		function updateOne(product){
-			ProductService.updateOne(product).then(
-					function onSuccess(response){
-						console.log("Save Response found ",response);
-
-						if(response.code  === 200 && response.data.affectedRows === 1){
-							clear();
-						}else if(response.code  === 500){
-							vm.error = true;
-							if(response.MessageCode === "ER_DUP_ENTRY"){
-								vm.errorMessage = response.Message;
-							}
-						}
-
-
-					},function onFail(errResponse){
-						console.error("Error Occured while saving product ",errResponse);
-					});
+			ProductService.updateOne(product).then(onSuccess,onFail);
 		}
 
 		vm.save = function(){

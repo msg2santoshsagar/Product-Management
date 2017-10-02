@@ -270,8 +270,8 @@
 				return;
 			}
 
-			console.log("Data to create order ==> ");
-			console.log( JSON.stringify(productList) );
+			//console.log("Data to create order ==> ");
+			//console.log( JSON.stringify(productList) );
 
 			SaleService.createOrder(productList).then(
 					function sucessCallback(response){
