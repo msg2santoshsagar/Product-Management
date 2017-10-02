@@ -3,8 +3,8 @@ var dbProperty 	= require('./../node/database_property');
 var transaction = require('node-mysql-transaction');
 
 var dbPropertyObject = {
-		host		: dbProperty.DB_HOST,
-		port		: dbProperty.DB_PORT,
+		//host		: dbProperty.DB_HOST,
+		//port		: dbProperty.DB_PORT,
 		user		: dbProperty.DB_USER,
 		password	: dbProperty.DB_PWD,
 		database    : dbProperty.DB_SCHEMA,
@@ -14,6 +14,12 @@ var dbPropertyObject = {
 
 if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
 	dbPropertyObject.socketPath = "/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}";
+}
+
+var keySet = Object.keys(dbPropertyObject);
+
+for(var i=0; i<keySet.length; i++){
+	console.log("DB-OBJ ",keySet[i],"=",dbPropertyObject[keySet[i]]);
 }
 
 var connection = mysql.createConnection(dbPropertyObject);
