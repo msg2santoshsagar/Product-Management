@@ -1,7 +1,6 @@
 /*jshint esversion: 6 */
 
-var NodeSession 	= 	require('node-session');
-var myFunction    	= 	require('./../node/my_function');
+const userRepository = require('./../node/user_repository');
 
 function login(req,res){
 
@@ -32,21 +31,67 @@ function login(req,res){
 		});
 	}
 
+	function loginResponseHandler(err,successData){
 
-	if(userName === password){
+		console.log("ERROR 		::: ", err);
+		console.log("SUCCESS 	::: ", successData);
 
-		/*// init 
-		var	session = new NodeSession( {secret: myFunction.generateRandomString(32) });
+		if(successData !== null){
 
-		session.startSession(req, res,function(){
-			console.log("New Session created");
-		});*/
+			if( successData.length > 0 &&  password === successData[0].password ){
 
-		console.log("USERNAME AND PASSWORD MATCHED PUTTING DATA INTO SESSION -- ",req.session.all());
+				var  userData = successData[0];
+
+				if(userData.active === "YES"){
+					req.session.put('id', userData.id);
+					req.session.put('userId', userData.userid);
+					req.session.put('userName', userData.name);
+					req.session.put('role', userData.role);
+
+					res.send({
+						code 	 : 200,
+						"status" : "pass"
+					});
+				}else{
+					res.send({
+						"code": 200,
+						"status" : "failed",
+						"reason" :"You are not active user, contact admin."
+					});
+				}
+
+			}else{
+				res.send({
+					"code": 200,
+					"status" : "failed",
+					"reason" :"Please check your credentials and try again."
+				});
+			}
+
+		}else{
+			res.send({
+				code         : 500,
+				status		 : "failed",
+				"reason" 	 : "System is facing some issue, please try later",
+				MessageCode  : err.code,
+				Message      : err.sqlMessage
+			});
+		}
+	}
+
+
+	userRepository.findOneByUserId(userName,loginResponseHandler);
+
+	/*if(userName === password){
 
 		req.session.put('userId', 1);
 		req.session.put('userName', userName);
 		req.session.put('role', "ADMIN");
+
+		if(userName.toLowerCase() !== "admin"){
+			req.session.put('role', "SALESMAN"); //TODO : CHange this
+		}
+
 
 		res.send({
 			"code": 200,
@@ -58,7 +103,7 @@ function login(req,res){
 			"status" : "failed",
 			"reason" :"Please check your credentials and try again."
 		});
-	}
+	}*/
 
 }
 

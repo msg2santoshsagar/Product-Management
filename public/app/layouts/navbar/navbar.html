@@ -1,5 +1,5 @@
 <div ng-cloak>
-	<nav class="navbar navbar-default ">
+	<nav class="navbar navbar-default" ng-switch="vm.isAuthenticated()">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -14,23 +14,27 @@
 					<li ng-class="{active: vm.$state.includes('home')}"><a
 						href="#" ui-sref="home"><span class="glyphicon glyphicon-home"></span>
 							HOME</a></li>
-					<li ng-class="{active: vm.$state.includes('dashboard')}"><a
-						href="#" ui-sref="dashboard"><span class="glyphicon glyphicon-dashboard"></span>
-							Dashboard</a></li>
-					<li ng-class="{active: vm.$state.includes('user')}"><a
-						href="#" ui-sref="user"><span class="glyphicon glyphicon-user"></span>
+					<li ng-class="{active: vm.$state.includes('dashboard')}"
+						ng-switch-when="true" has-any-authority="ADMIN, SALESMAN"><a
+						href="#" ui-sref="dashboard"><span
+							class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
+					<li ng-class="{active: vm.$state.includes('user')}"
+						ng-switch-when="true" has-any-authority="ADMIN"><a href="#"
+						ui-sref="user"><span class="glyphicon glyphicon-user"></span>
 							USER MANAGEMENT</a></li>
-					<li ng-class="{active: vm.$state.includes('product')}"><a
-						href="#" ui-sref="product"><span
-							class="glyphicon glyphicon-globe"></span> PRODUCT</a></li>
-					<li ng-class="{active: vm.$state.includes('sale')}"><a
+					<li ng-class="{active: vm.$state.includes('product')}"
+						ng-switch-when="true" has-any-authority="ADMIN"><a href="#"
+						ui-sref="product"><span class="glyphicon glyphicon-globe"></span>
+							PRODUCT</a></li>
+					<li ng-class="{active: vm.$state.includes('sale')}"
+						ng-switch-when="true" has-any-authority="SALESMAN"><a
 						href="#" ui-sref="sale"><span
 							class="glyphicon glyphicon-list-alt"></span> SALE</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-off"></span>
-							Log Out</a></li>
-					<li><a href="#" ng-click="vm.login();"><span
+					<li ng-switch-when="true"><a href="#" ng-click="vm.logout()"><span
+							class="glyphicon glyphicon-off"></span> Log Out</a></li>
+					<li ng-switch-when="false"><a href="#" ng-click="vm.login();"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
 			</div>

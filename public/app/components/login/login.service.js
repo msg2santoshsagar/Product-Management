@@ -5,11 +5,13 @@
 	.module('productManagement')
 	.factory('LoginService', LoginService);
 
-	LoginService.$inject = ['$uibModal','HttpService','$q'];
+	LoginService.$inject = ['$uibModal','HttpService','$q','AuthService','$state'];
 
-	function LoginService ($uibModal,HttpService,$q) {
+	function LoginService ($uibModal,HttpService,$q,AuthService,$state) {
 
-		var LOGIN_API_URL = "api/login";
+		var LOGIN_API_URL 	= "api/login";
+		var LOGOUT_API_URL 	= "api/logout";
+
 		var modalInstance = null;
 
 		var resetModal = function () {
@@ -38,6 +40,23 @@
 			HttpService.fetchPostData(LOGIN_API_URL,data).then(
 					function(response){
 						deferred.resolve(response);
+						AuthService.getCurrentUser();
+						$state.go('home');
+					},function(errData){
+						deferred.reject(errData);
+					}
+			);
+			return deferred.promise;
+		}
+
+		function logout(){
+			var deferred = $q.defer();
+
+			HttpService.fetchPostData(LOGOUT_API_URL).then(
+					function(response){
+						deferred.resolve(response);
+						AuthService.getCurrentUser();
+						$state.go('home');
 					},function(errData){
 						deferred.reject(errData);
 					}
@@ -47,7 +66,8 @@
 
 		var service = {
 				open	: 	open,
-				login	:	login
+				login	:	login,
+				logout	:	logout
 		};
 
 		return service;

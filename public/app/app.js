@@ -17,9 +17,11 @@
 	app.config(config);
 	app.run(run);
 
-	run.$inject = ['stateHandler'];
-	function run(stateHandler) {
+	run.$inject = ['stateHandler','AuthService'];
+	function run(stateHandler,AuthService) {
 		stateHandler.initialize();
+		AuthService.getCurrentUser();
+		
 	}
 
 	config.$inject = ['$locationProvider'];

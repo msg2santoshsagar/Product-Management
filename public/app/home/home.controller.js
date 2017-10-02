@@ -12,13 +12,8 @@
 		
 		vm.user = {};
 
-		AuthService.getUserDetail().then(function(response){
-			vm.user = response.user;
-		},function(err){
-			console.error("Error occured while fetching user detail");
-		});
+		vm.user 			= AuthService.getUserDetail;
+		vm.isAuthenticated 	= AuthService.isAuthenticated;
 
-	
-		
 	}
 })();

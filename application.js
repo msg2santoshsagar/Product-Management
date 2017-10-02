@@ -19,7 +19,9 @@ var http = require('http');
 var router = express.Router();
 
 var nodeSession = new NodeSession({
-	'secret' 	: 'Q3UBzdH0GDBCiRCTKbi5MTPyChpzXLsTA'/*,
+	'secret' 	: 'Q3UBzdH0GDBCiRCTKbi5MTPyChpzXLsTA',
+	'lifetime'	:  30 * 60 * 1000
+	/*,
 	'driver' 	: 'database',
 	'lifetime'	:  30 * 60 * 1000,
 	'connection': {

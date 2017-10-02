@@ -3,12 +3,13 @@
 const dbHelper = require('./../node/database_helper');
 const con 	   = dbHelper.connection;
 
-const FIND_ALL_QUERY 		= "select * from user";
-const FIND_ONE_QUERY 		= "select * from user where id = ?";
-const SAVE_ONE_QUERY 		= "insert into user (name , role, userid, password, active, createdBy, createdDate, updatedBy, updatedDate) values( ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
-const DELETE_ONE_QUERY		= "delete from user where id = ? ";
-const FIND_ID_BY_USERID_IC 	= "select id from user where UPPER(userid) = UPPER(?) ";
-const UPDATE_ONE_QUERY 		= "update user set name = ? , role = ? , userid = ? , active = ? , updatedBy = ? , updatedDate = ? where id = ? ";
+const FIND_ALL_QUERY 			= "select * from user";
+const FIND_ONE_QUERY 			= "select * from user where id = ?";
+const FIND_ONE_BY_USERID_QUERY 	= "select * from user where UPPER(userid) = UPPER(?)";
+const SAVE_ONE_QUERY 			= "insert into user (name , role, userid, password, active, createdBy, createdDate, updatedBy, updatedDate) values( ?, ?, ?, ?, ?, ?, ?, ?, ? ) ";
+const DELETE_ONE_QUERY			= "delete from user where id = ? ";
+const FIND_ID_BY_USERID_IC 		= "select id from user where UPPER(userid) = UPPER(?) ";
+const UPDATE_ONE_QUERY 			= "update user set name = ? , role = ? , userid = ? , active = ? , updatedBy = ? , updatedDate = ? where id = ? ";
 
 function findAll(callback){
 
@@ -24,6 +25,17 @@ function findAll(callback){
 function findOne(id ,callback){
 
 	con.query(FIND_ONE_QUERY, [id],  function (err, result) {
+		if (err){
+			callback(err,null);
+			return;
+		}
+		callback(null,result);
+	});
+}
+
+function findOneByUserId(userId ,callback){
+
+	con.query(FIND_ONE_BY_USERID_QUERY, [userId],  function (err, result) {
 		if (err){
 			callback(err,null);
 			return;
@@ -84,5 +96,6 @@ module.exports = {
 		updateOne		: updateOne,
 		deleteOne   	: deleteOne,
 		finIdByUserId 	: finIdByUserId,
-		findOne			: findOne
+		findOne			: findOne,
+		findOneByUserId	: findOneByUserId	
 };
