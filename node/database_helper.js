@@ -3,8 +3,6 @@ var dbProperty 	= require('./../node/database_property');
 var transaction = require('node-mysql-transaction');
 
 var dbPropertyObject = {
-		//host		: dbProperty.DB_HOST,
-		//port		: dbProperty.DB_PORT,
 		user		: dbProperty.DB_USER,
 		password	: dbProperty.DB_PWD,
 		database    : dbProperty.DB_SCHEMA,
@@ -13,14 +11,19 @@ var dbPropertyObject = {
 
 
 if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
-	console.log("Setting socket path");
-	dbPropertyObject.socketPath = "/cloudsql/alife-inclusive:asia-northeast1:alife-inclusive";
+	//For Production Environment
+	dbPropertyObject.socketPath = "/cloudsql/"+process.env.INSTANCE_CONNECTION_NAME;
+}else{
+	//For Other Environment
+	dbPropertyObject.host = dbProperty.DB_HOST;
+	dbPropertyObject.port = dbProperty.DB_PORT;
 }
 
 var keySet = Object.keys(dbPropertyObject);
 
+console.log ("********************DATA BASE PROPERTY********************");
 for(var i=0; i<keySet.length; i++){
-	console.log("DB-OBJ ",keySet[i],"=",dbPropertyObject[keySet[i]]);
+	console.log("DB-CONFIG :: ",keySet[i],"=",dbPropertyObject[keySet[i]]);
 }
 
 var connection = mysql.createConnection(dbPropertyObject);
