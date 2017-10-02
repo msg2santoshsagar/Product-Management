@@ -12,6 +12,7 @@ env_variables:
   DBSCHEMA: product_management_local
   DBHOST: /cloudsql/alife-inclusive:asia-northeast1:alife-inclusive
   NODE_ENV: production
+  INSTANCE_CONNECTION_NAME: alife-inclusive:asia-northeast1:alife-inclusive
 
 beta_settings:
   # The connection name of your instance, available by using

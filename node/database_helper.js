@@ -13,6 +13,7 @@ var dbPropertyObject = {
 
 
 if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
+	console.log("Setting socket path");
 	dbPropertyObject.socketPath = "/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}";
 }
 
