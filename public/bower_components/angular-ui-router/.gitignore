@@ -1,0 +1,13 @@
+/CHANGELOG.md
+/CONTRIBUTING.md
+/DOCS.md
+/ISSUE_TEMPLATE.md
+/LICENSE
+/README.md
+/artifacts.json
+/bower.json
+/karma.conf.js
+/migrate/
+/rollup.config.js
+/tslint.json
+/yarn.lock
