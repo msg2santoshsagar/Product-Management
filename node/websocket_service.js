@@ -25,7 +25,7 @@ const emitter 			= require('./../node/customEventEmitter');
 var clients = {};
 
 const wsOptions = {
-		'sockjs_url'	: 	'http://cdn.jsdelivr.net/sockjs/1.1.4/sockjs.min.js',
+		'sockjs_url'	: 	'https://cdn.jsdelivr.net/sockjs/1.1.4/sockjs.min.js',
 		'prefix'		:	'/websocket'
 } ;
 
