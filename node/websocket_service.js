@@ -1,23 +1,6 @@
 /*jshint esversion: 6 */
 
-//const ws				    = 	require("nodejs-websocket");
-
-//Start the Websocket server
-//const WSPORT = process.env.WSPORT || 8081;
-
-/*var server = ws.createServer(function (conn) {
-	console.log("New connection");
-	conn.on("text", function (str) {
-		console.log("Received "+str);
-		conn.sendText(str.toUpperCase()+"!!!");
-	});
-	conn.on("close", function (code, reason) {
-		console.log("Connection closed");
-	});
-}).listen(WSPORT);*/
-
-
-const sockjs = require('sockjs');
+const sockjs 			= require('sockjs');
 const emitter 			= require('./../node/customEventEmitter');
 
 
@@ -25,8 +8,8 @@ const emitter 			= require('./../node/customEventEmitter');
 var clients = {};
 
 const wsOptions = {
-		'sockjs_url'	: 	'https://cdn.jsdelivr.net/sockjs/1.1.4/sockjs.min.js',
-		'prefix'		:	'/websocket'
+		"sockjs_url"	: 	"https://cdn.jsdelivr.net/sockjs/1.1.4/sockjs.min.js",
+		"prefix"		:	"/websocket"
 } ;
 
 var websocketServer = sockjs.createServer(wsOptions);
