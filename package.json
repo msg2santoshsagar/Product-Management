@@ -23,6 +23,7 @@
   "author": "Santosh Sagar<msg2santoshsagar@gmail.com>",
   "readmeFilename": "README.md",
   "dependencies": {
+    "angular-desktop-notification": "^1.1.5",
     "body-parser": "^1.17.2",
     "bower": "^1.8.2",
     "events": "^1.1.1",

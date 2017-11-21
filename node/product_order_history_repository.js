@@ -72,13 +72,15 @@ function saveAndUpdateProduct(productData , callback){
 	con.beginTransaction(function(err) {
 
 		if (err) { 
-			throw err; 
+			callback(err,null);
+			return;
 		}
 
 		con.query(SAVE_ONE_QUERY, productData, function(err, result) {
 			if (err) { 
 				con.rollback(function() {
-					throw err;
+					callback(err,null);
+					return;
 				});
 			}
 
@@ -89,19 +91,22 @@ function saveAndUpdateProduct(productData , callback){
 			con.query(UPDATE_PRODUCT_QTY, ProductTableData , function(err, result) {
 				if (err) { 
 					con.rollback(function() {
-						throw err;
+						callback(err,null);
+						return;
 					});
 				}  
 				con.query(FIND_PRODUCT_QTY , productData[0] , function(err, result){
 					if (err) { 
 						con.rollback(function() {
-							throw err;
+							callback(err,null);
+							return;
 						});
 					} 
 					con.commit(function(err) {
 						if (err) { 
 							con.rollback(function() {
-								throw err;
+								callback(err,null);
+								return;
 							});
 						}
 						console.log('Transaction Complete.');

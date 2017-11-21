@@ -22,6 +22,7 @@
     "angular-ui-select": "^0.19.8",
     "angular-sanitize": "1.5.11",
     "sockjs-client": "^1.1.4",
-    "stomp-websocket": "^2.3.4"
+    "stomp-websocket": "^2.3.4",
+    "Angular Desktop Notification": "angular-desktop-notification#*"
   }
 }

@@ -5,13 +5,14 @@
 	.module('productManagement')
 	.controller('DashboardController', DashboardController);
 
-	DashboardController.$inject = ['$scope', '$state', 'ProductService','$window','$timeout'];
+	DashboardController.$inject = ['$scope', '$state', 'ProductService','$window','$timeout','desktopNotification'];
 
-	function DashboardController ($scope, $state, ProductService,$window,$timeout) {
+	function DashboardController ($scope, $state, ProductService,$window,$timeout,desktopNotification) {
 		var vm = this;
 
 		var WEBSOCKET_END_POINT = "/websocket";
 		var sock  				= null;
+		var showNotificationFlag = desktopNotification.isSupported() && desktopNotification.currentPermission() ===  desktopNotification.permissions.granted;
 
 		var rowtpl='<div class="color-white" ><div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader , \'backgroud-green\':row.entity.current_stock >= row.entity.threshold_stock, \'background-red\':row.entity.current_stock < row.entity.threshold_stock }" ui-grid-cell></div></div>';
 
@@ -51,6 +52,20 @@
 		};
 
 
+		/**
+		 * 	options.body - the message of the notification
+		 *	options.icon - a string path of an icon, jpg and etc.
+		 *	options.autoClose - a boolean property that will close the notification after the duration specified (Defaults to true)
+		 *	options.duration - an integer that will set the seconds before the notification is automatically closed (Defaults to 5)
+		 *	options.showOnPageHidden - a boolean property that will only show the notification if the page is hidden (Defaults to false)
+		 *	options.onClick*/
+		function showNotification(title , options){
+			if ( showNotificationFlag ){
+				desktopNotification.show(title, options);
+			}
+		}
+
+
 		function initProductList() {
 			ProductService.findAll().then(function(response) {
 				vm.dashBoardOption.data = response.data;
@@ -69,6 +84,7 @@
 		function handleProductUpdatedEvent(productData){
 
 			var productList = vm.dashBoardOption.data;
+			var productName = null
 
 			if(productList === null || productList.length === 0){
 				return;
@@ -81,12 +97,24 @@
 				if( product.id === productData.id ){
 					console.log("Data matched update it");
 					product.name 			= productData.name;
+					productName 			= productData.name;
 					product.price	 		= productData.price;
 					product.threshold_stock = productData.threshold_stock;
 				}
 			}
 
 			setDashboardProductList( productList );
+
+			if(productName !== null){
+				showNotification("Product Detail Updated",{
+					"body" 				: productName+" detail updated in product list",
+					"autoClose" 		: true,
+					"duration" 			: 30,
+					"showOnPageHidden" 	: false
+				});
+			}
+
+
 		}
 
 		function handleProductAddedEvent(productData){
@@ -107,6 +135,15 @@
 			productList.push(product);
 
 			setDashboardProductList( productList );
+
+
+			showNotification("New Product Added",{
+				"body" 				: productData.name+" got added in product list",
+				"autoClose" 		: true,
+				"duration" 			: 30,
+				"showOnPageHidden" 	: false
+			});
+
 		}
 
 		function handleProductOrderAddedEvent(productData){
@@ -129,6 +166,14 @@
 				}
 			}
 			setDashboardProductList( productList );
+
+
+			showNotification("Product Detail updated",{
+				"body" 				: "Some of the product detail got updated",
+				"autoClose" 		: true,
+				"duration" 			: 30,
+				"showOnPageHidden" 	: true
+			});
 		}
 
 		function handleNewOrderPlaced(param){
@@ -154,6 +199,7 @@
 			}
 
 			setDashboardProductList( productList );
+			
 		}
 
 		function handleProductDeletedEvent(productData){
@@ -175,6 +221,13 @@
 			}
 
 			setDashboardProductList( productListToUpdate );
+			
+			showNotification("Product Removed",{
+				"body" 				: productData.name+" product is removed from product list",
+				"autoClose" 		: true,
+				"duration" 			: 30,
+				"showOnPageHidden" 	: false
+			});
 		}
 
 		function dashBoardUpdateEventHandler(data){
